@@ -209,8 +209,8 @@ dotnet test /p:CollectCoverage=true /p:CoverageReportFormat=opencover
 ## 👨‍💻 Autor
 
 **[Seu Nome]**
-- GitHub: [@seu-usuario](https://github.com/seu-usuario)
-- Email: seu-email@exemplo.com
+- GitHub: [@gustavopalinka](https://github.com/gustavopalinka)
+- Email: gustavo.scabuzzi@gmail.com
 
 ---
 
@@ -226,6 +226,4 @@ Este projeto foi desenvolvido como parte do MBA DevXpert e é destinado para fin
 - Comunidade .NET Brasil
 
 ---
-
-**Última atualização:** Outubro/2025
 
