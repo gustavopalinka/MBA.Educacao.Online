@@ -19,7 +19,19 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CrossCutting", "CrossCuttin
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebApps", "WebApps", "{2D7220BF-2438-4D52-881F-6320DBDEBA10}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MBA.Educacao.Online.Core", "src\MBA.Educacao.Online.Core\MBA.Educacao.Online.Core.csproj", "{2CDC1292-C444-4625-BB8F-B1CF9B31EA32}"
+EndProject
 Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2CDC1292-C444-4625-BB8F-B1CF9B31EA32}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2CDC1292-C444-4625-BB8F-B1CF9B31EA32}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2CDC1292-C444-4625-BB8F-B1CF9B31EA32}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2CDC1292-C444-4625-BB8F-B1CF9B31EA32}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
@@ -30,6 +42,7 @@ Global
 		{5515D6BC-754E-487E-AAD3-B3DA5D818853} = {4FB00399-EE5B-44D6-92B2-BA8D87CEBA53}
 		{5D983FEB-422E-482F-86B8-02346E7B59E8} = {4FB00399-EE5B-44D6-92B2-BA8D87CEBA53}
 		{8853D197-0BBC-4285-96E9-222E38B328AD} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{2CDC1292-C444-4625-BB8F-B1CF9B31EA32} = {973BE8DD-8159-4A03-8887-00F27045AC8E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {605198D7-13FD-4703-AEAE-468FA82B2A63}
