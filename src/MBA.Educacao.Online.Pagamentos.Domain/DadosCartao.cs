@@ -60,4 +60,3 @@ public class DadosCartao
         return NumeroCartao.GetHashCode();
     }
 }
-

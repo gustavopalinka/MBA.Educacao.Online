@@ -36,4 +36,3 @@ public class PagamentoRejeitadoEvent : Event
     public Guid AlunoId { get; private set; }
     public string Motivo { get; private set; }
 }
-

@@ -6,4 +6,15 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="FluentValidation" Version="11.9.0" />
+    <PackageReference Include="MediatR" Version="12.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MBA.Educacao.Online.Core\MBA.Educacao.Online.Core.csproj" />
+    <ProjectReference Include="..\MBA.Educacao.Online.Pagamentos.Domain\MBA.Educacao.Online.Pagamentos.Domain.csproj" />
+    <ProjectReference Include="..\MBA.Educacao.Online.Pagamentos.Data\MBA.Educacao.Online.Pagamentos.Data.csproj" />
+  </ItemGroup>
+
 </Project>

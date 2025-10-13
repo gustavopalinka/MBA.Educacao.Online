@@ -58,4 +58,3 @@ public class Pagamento : Entity, IAggregateRoot
 
     public bool EstaConfirmado() => StatusPagamento.Status == StatusPagamentoEnum.Confirmado;
 }
-

@@ -44,4 +44,3 @@ public enum StatusPagamentoEnum
     Rejeitado = 3,
     Cancelado = 4
 }
-
