@@ -33,6 +33,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MBA.Educacao.Online.GestaoA
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MBA.Educacao.Online.GestaoAlunos.Application", "src\MBA.Educacao.Online.GestaoAlunos.Application\MBA.Educacao.Online.GestaoAlunos.Application.csproj", "{2D9CE0D5-DF5D-4FFD-9078-973A8405FF4E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MBA.Educacao.Online.Pagamentos.Domain", "src\MBA.Educacao.Online.Pagamentos.Domain\MBA.Educacao.Online.Pagamentos.Domain.csproj", "{0FAAC36A-2FD1-E08E-D0EF-3E7B0FD563DA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MBA.Educacao.Online.Pagamentos.Application", "src\MBA.Educacao.Online.Pagamentos.Application\MBA.Educacao.Online.Pagamentos.Application.csproj", "{7E9FD799-70FE-47A1-B0BE-63DE4EE5B72E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MBA.Educacao.Online.Pagamentos.Data", "src\MBA.Educacao.Online.Pagamentos.Data\MBA.Educacao.Online.Pagamentos.Data.csproj", "{FC4CA97F-3670-481F-A22A-F0A99CF101E5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -67,6 +73,18 @@ Global
 		{2D9CE0D5-DF5D-4FFD-9078-973A8405FF4E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2D9CE0D5-DF5D-4FFD-9078-973A8405FF4E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2D9CE0D5-DF5D-4FFD-9078-973A8405FF4E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0FAAC36A-2FD1-E08E-D0EF-3E7B0FD563DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0FAAC36A-2FD1-E08E-D0EF-3E7B0FD563DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0FAAC36A-2FD1-E08E-D0EF-3E7B0FD563DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0FAAC36A-2FD1-E08E-D0EF-3E7B0FD563DA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7E9FD799-70FE-47A1-B0BE-63DE4EE5B72E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7E9FD799-70FE-47A1-B0BE-63DE4EE5B72E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7E9FD799-70FE-47A1-B0BE-63DE4EE5B72E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7E9FD799-70FE-47A1-B0BE-63DE4EE5B72E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FC4CA97F-3670-481F-A22A-F0A99CF101E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FC4CA97F-3670-481F-A22A-F0A99CF101E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FC4CA97F-3670-481F-A22A-F0A99CF101E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FC4CA97F-3670-481F-A22A-F0A99CF101E5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -85,6 +103,9 @@ Global
 		{88F57056-7A45-4F5C-9F56-F41BAB5AC425} = {5515D6BC-754E-487E-AAD3-B3DA5D818853}
 		{35D5E5A3-A5FA-4CD7-9BD2-00C0D1E3A187} = {5515D6BC-754E-487E-AAD3-B3DA5D818853}
 		{2D9CE0D5-DF5D-4FFD-9078-973A8405FF4E} = {5515D6BC-754E-487E-AAD3-B3DA5D818853}
+		{0FAAC36A-2FD1-E08E-D0EF-3E7B0FD563DA} = {5D983FEB-422E-482F-86B8-02346E7B59E8}
+		{7E9FD799-70FE-47A1-B0BE-63DE4EE5B72E} = {5D983FEB-422E-482F-86B8-02346E7B59E8}
+		{FC4CA97F-3670-481F-A22A-F0A99CF101E5} = {5D983FEB-422E-482F-86B8-02346E7B59E8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {605198D7-13FD-4703-AEAE-468FA82B2A63}
