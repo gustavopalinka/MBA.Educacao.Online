@@ -27,6 +27,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MBA.Educacao.Online.GestaoC
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MBA.Educacao.Online.GestaoConteudo.Application", "src\MBA.Educacao.Online.GestaoConteudo.Application\MBA.Educacao.Online.GestaoConteudo.Application.csproj", "{F286C49E-9BC2-4809-823C-8442C24BEC28}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MBA.Educacao.Online.GestaoAlunos.Domain", "src\MBA.Educacao.Online.GestaoAlunos.Domain\MBA.Educacao.Online.GestaoAlunos.Domain.csproj", "{88F57056-7A45-4F5C-9F56-F41BAB5AC425}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MBA.Educacao.Online.GestaoAlunos.Data", "src\MBA.Educacao.Online.GestaoAlunos.Data\MBA.Educacao.Online.GestaoAlunos.Data.csproj", "{35D5E5A3-A5FA-4CD7-9BD2-00C0D1E3A187}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MBA.Educacao.Online.GestaoAlunos.Application", "src\MBA.Educacao.Online.GestaoAlunos.Application\MBA.Educacao.Online.GestaoAlunos.Application.csproj", "{2D9CE0D5-DF5D-4FFD-9078-973A8405FF4E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -49,6 +55,18 @@ Global
 		{F286C49E-9BC2-4809-823C-8442C24BEC28}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F286C49E-9BC2-4809-823C-8442C24BEC28}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F286C49E-9BC2-4809-823C-8442C24BEC28}.Release|Any CPU.Build.0 = Release|Any CPU
+		{88F57056-7A45-4F5C-9F56-F41BAB5AC425}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{88F57056-7A45-4F5C-9F56-F41BAB5AC425}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{88F57056-7A45-4F5C-9F56-F41BAB5AC425}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{88F57056-7A45-4F5C-9F56-F41BAB5AC425}.Release|Any CPU.Build.0 = Release|Any CPU
+		{35D5E5A3-A5FA-4CD7-9BD2-00C0D1E3A187}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{35D5E5A3-A5FA-4CD7-9BD2-00C0D1E3A187}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{35D5E5A3-A5FA-4CD7-9BD2-00C0D1E3A187}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{35D5E5A3-A5FA-4CD7-9BD2-00C0D1E3A187}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2D9CE0D5-DF5D-4FFD-9078-973A8405FF4E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2D9CE0D5-DF5D-4FFD-9078-973A8405FF4E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2D9CE0D5-DF5D-4FFD-9078-973A8405FF4E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2D9CE0D5-DF5D-4FFD-9078-973A8405FF4E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -64,6 +82,9 @@ Global
 		{E000D5FE-75CB-49E1-85BD-C326C8532B71} = {37BDD06B-F233-4E96-A0E5-F7F2A7FED300}
 		{14469346-104C-476C-B9C4-782F61843129} = {37BDD06B-F233-4E96-A0E5-F7F2A7FED300}
 		{F286C49E-9BC2-4809-823C-8442C24BEC28} = {37BDD06B-F233-4E96-A0E5-F7F2A7FED300}
+		{88F57056-7A45-4F5C-9F56-F41BAB5AC425} = {5515D6BC-754E-487E-AAD3-B3DA5D818853}
+		{35D5E5A3-A5FA-4CD7-9BD2-00C0D1E3A187} = {5515D6BC-754E-487E-AAD3-B3DA5D818853}
+		{2D9CE0D5-DF5D-4FFD-9078-973A8405FF4E} = {5515D6BC-754E-487E-AAD3-B3DA5D818853}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {605198D7-13FD-4703-AEAE-468FA82B2A63}
