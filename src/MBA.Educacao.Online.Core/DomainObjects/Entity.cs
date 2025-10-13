@@ -2,9 +2,6 @@ using MBA.Educacao.Online.Core.Messages;
 
 namespace MBA.Educacao.Online.Core.DomainObjects;
 
-/// <summary>
-/// Classe base para todas as entidades do domínio.
-/// </summary>
 public abstract class Entity
 {
     public Guid Id { get; protected set; }
@@ -74,4 +71,3 @@ public abstract class Entity
         throw new NotImplementedException();
     }
 }
-

@@ -1,8 +1,5 @@
 namespace MBA.Educacao.Online.Core.Messages;
 
-/// <summary>
-/// Classe base para todas as mensagens (Commands e Events).
-/// </summary>
 public abstract class Message
 {
     public string MessageType { get; protected set; }
@@ -13,4 +10,3 @@ public abstract class Message
         MessageType = GetType().Name;
     }
 }
-

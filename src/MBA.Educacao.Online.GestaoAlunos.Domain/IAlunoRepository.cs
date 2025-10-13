@@ -2,9 +2,6 @@ using MBA.Educacao.Online.Core.Data;
 
 namespace MBA.Educacao.Online.GestaoAlunos.Domain;
 
-/// <summary>
-/// Interface do repositório de Aluno
-/// </summary>
 public interface IAlunoRepository : IRepository<Aluno>
 {
     Task<Aluno?> ObterPorId(Guid id);
@@ -15,4 +12,3 @@ public interface IAlunoRepository : IRepository<Aluno>
     void Adicionar(Aluno aluno);
     void Atualizar(Aluno aluno);
 }
-

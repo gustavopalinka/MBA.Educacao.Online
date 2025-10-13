@@ -1,11 +1,9 @@
 namespace MBA.Educacao.Online.Pagamentos.Domain;
 
-/// <summary>
-/// Value Object: StatusPagamento
-/// Representa o status de um pagamento
-/// </summary>
 public class StatusPagamento
 {
+    protected StatusPagamento() { }
+
     public StatusPagamento(StatusPagamentoEnum status, string? motivoRejeicao = null)
     {
         Status = status;
@@ -33,9 +31,6 @@ public class StatusPagamento
     public override string ToString() => Status.ToString();
 }
 
-/// <summary>
-/// Enum: Status do Pagamento
-/// </summary>
 public enum StatusPagamentoEnum
 {
     Pendente = 0,

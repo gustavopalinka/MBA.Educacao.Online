@@ -3,10 +3,6 @@ using FluentValidation.Results;
 
 namespace MBA.Educacao.Online.GestaoConteudo.Application.Commands;
 
-/// <summary>
-/// Command para adicionar uma aula a um curso existente
-/// Caso de Uso: Cadastro de Aula (do PDF de requisitos)
-/// </summary>
 public class AdicionarAulaCommand : Command
 {
     public AdicionarAulaCommand(Guid cursoId, string codigo, string titulo, 
@@ -31,4 +27,3 @@ public class AdicionarAulaCommand : Command
         return ValidationResult.IsValid;
     }
 }
-

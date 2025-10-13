@@ -2,9 +2,6 @@ using MBA.Educacao.Online.Core.Data;
 
 namespace MBA.Educacao.Online.GestaoConteudo.Domain;
 
-/// <summary>
-/// Interface do repositório de Curso
-/// </summary>
 public interface ICursoRepository : IRepository<Curso>
 {
     Task<Curso?> ObterPorId(Guid id);
@@ -15,4 +12,3 @@ public interface ICursoRepository : IRepository<Curso>
     void Atualizar(Curso curso);
     void Remover(Curso curso);
 }
-

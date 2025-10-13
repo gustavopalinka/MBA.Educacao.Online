@@ -2,9 +2,6 @@ using System.ComponentModel.DataAnnotations;
 
 namespace MBA.Educacao.Online.Core.Models;
 
-/// <summary>
-/// ViewModel para registro de novo usuário.
-/// </summary>
 public class RegisterUserViewModel
 {
     [Required(ErrorMessage = "O campo {0} é obrigatório")]
@@ -24,4 +21,3 @@ public class RegisterUserViewModel
     [Compare("Password", ErrorMessage = "As senhas não conferem.")]
     public string? ConfirmPassword { get; set; }
 }
-

@@ -2,10 +2,6 @@ using MBA.Educacao.Online.Core.DomainObjects;
 
 namespace MBA.Educacao.Online.GestaoConteudo.Domain;
 
-/// <summary>
-/// Aggregate Root: Curso
-/// Representa um curso disponível na plataforma
-/// </summary>
 public class Curso : Entity, IAggregateRoot
 {
     protected Curso() { }
@@ -39,11 +35,8 @@ public class Curso : Entity, IAggregateRoot
     public DateTime DataCadastro { get; private set; }
     public ConteudoProgramatico ConteudoProgramatico { get; private set; }
     public bool Ativo { get; private set; }
-
-    // Navegação
     public ICollection<Aula> Aulas { get; private set; }
 
-    // Comportamentos
     public void AlterarEstado(bool ativo) => Ativo = ativo;
 
     public void AlterarConteudoProgramatico(ConteudoProgramatico conteudoProgramatico)
@@ -79,28 +72,17 @@ public class Curso : Entity, IAggregateRoot
         Requisitos = requisitos;
     }
 
-    // Validações
     private void ValidarCurso(string nome, string descricao, decimal valor, 
                              int cargaHoraria, string publicoAlvo, 
                              string objetivo, string requisitos)
     {
         Validacoes.ValidarSeVazio(nome, "O nome do curso não pode ser vazio");
-        Validacoes.ValidarTamanho(nome, NomeMaxLength, "O nome do curso deve ter no máximo {0} caracteres");
-        
         Validacoes.ValidarSeVazio(descricao, "A descrição do curso não pode ser vazia");
-        Validacoes.ValidarTamanho(descricao, DescricaoMaxLength, "A descrição do curso deve ter no máximo {0} caracteres");
-        
         Validacoes.ValidarSeMenorQue(valor, 0, "O valor do curso não pode ser negativo");
         Validacoes.ValidarSeMenorQue(cargaHoraria, 1, "A carga horária deve ser maior que zero");
-        
         Validacoes.ValidarSeVazio(publicoAlvo, "O público alvo não pode ser vazio");
-        Validacoes.ValidarTamanho(publicoAlvo, PublicoAlvoMaxLength, "O público alvo deve ter no máximo {0} caracteres");
-        
         Validacoes.ValidarSeVazio(objetivo, "O objetivo não pode ser vazio");
-        Validacoes.ValidarTamanho(objetivo, ObjetivoMaxLength, "O objetivo deve ter no máximo {0} caracteres");
-        
         Validacoes.ValidarSeVazio(requisitos, "Os requisitos não podem ser vazios");
-        Validacoes.ValidarTamanho(requisitos, RequisitosMaxLength, "Os requisitos devem ter no máximo {0} caracteres");
     }
 
     public override bool EhValido()
@@ -110,13 +92,4 @@ public class Curso : Entity, IAggregateRoot
                Valor >= 0 && 
                CargaHoraria > 0;
     }
-
-    #region Constants
-    public const int NomeMaxLength = 200;
-    public const int DescricaoMaxLength = 1000;
-    public const int PublicoAlvoMaxLength = 300;
-    public const int ObjetivoMaxLength = 500;
-    public const int RequisitosMaxLength = 500;
-    #endregion
 }
-

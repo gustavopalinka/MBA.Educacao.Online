@@ -3,10 +3,6 @@ using FluentValidation.Results;
 
 namespace MBA.Educacao.Online.GestaoConteudo.Application.Commands;
 
-/// <summary>
-/// Command para criar um novo curso
-/// Caso de Uso: Cadastro de Curso (do PDF de requisitos)
-/// </summary>
 public class CriarCursoCommand : Command
 {
     public CriarCursoCommand(string nome, string descricao, decimal valor, int cargaHoraria,
@@ -38,4 +34,3 @@ public class CriarCursoCommand : Command
         return ValidationResult.IsValid;
     }
 }
-

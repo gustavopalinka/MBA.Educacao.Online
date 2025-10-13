@@ -2,10 +2,6 @@ using MBA.Educacao.Online.Core.Messages;
 
 namespace MBA.Educacao.Online.GestaoAlunos.Application.Commands;
 
-/// <summary>
-/// Command para finalizar um curso e gerar certificado
-/// Caso de Uso: Finalização do Curso (do PDF)
-/// </summary>
 public class FinalizarCursoCommand : Command
 {
     public FinalizarCursoCommand(Guid alunoId, Guid cursoId, Guid matriculaId)
@@ -24,4 +20,3 @@ public class FinalizarCursoCommand : Command
         return AlunoId != Guid.Empty && CursoId != Guid.Empty && MatriculaId != Guid.Empty;
     }
 }
-

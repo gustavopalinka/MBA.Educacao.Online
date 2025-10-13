@@ -2,10 +2,6 @@ using MBA.Educacao.Online.Core.Messages;
 
 namespace MBA.Educacao.Online.GestaoAlunos.Application.Commands;
 
-/// <summary>
-/// Command para matricular um aluno em um curso
-/// Caso de Uso: Matrícula do Aluno (do PDF)
-/// </summary>
 public class MatricularAlunoCommand : Command
 {
     public MatricularAlunoCommand(Guid alunoId, Guid cursoId)
@@ -22,4 +18,3 @@ public class MatricularAlunoCommand : Command
         return AlunoId != Guid.Empty && CursoId != Guid.Empty;
     }
 }
-

@@ -2,10 +2,6 @@ using MBA.Educacao.Online.Core.DomainObjects;
 
 namespace MBA.Educacao.Online.Pagamentos.Domain;
 
-/// <summary>
-/// Aggregate Root: Pagamento
-/// Representa um pagamento de matrícula
-/// </summary>
 public class Pagamento : Entity, IAggregateRoot
 {
     protected Pagamento() { }
@@ -28,26 +24,19 @@ public class Pagamento : Entity, IAggregateRoot
     public decimal Valor { get; private set; }
     public DateTime DataPagamento { get; private set; }
     public DateTime? DataConfirmacao { get; private set; }
-    
-    // Value Objects
     public DadosCartao DadosCartao { get; private set; }
     public StatusPagamento StatusPagamento { get; private set; }
 
-    // Comportamentos
     public void Confirmar()
     {
         StatusPagamento = new StatusPagamento(StatusPagamentoEnum.Confirmado);
         DataConfirmacao = DateTime.Now;
-        
-        // Dispara evento de domínio
         AdicionarEvento(new PagamentoConfirmadoEvent(Id, MatriculaId, AlunoId));
     }
 
     public void Rejeitar(string motivo)
     {
         StatusPagamento = new StatusPagamento(StatusPagamentoEnum.Rejeitado, motivo);
-        
-        // Dispara evento de domínio
         AdicionarEvento(new PagamentoRejeitadoEvent(Id, MatriculaId, AlunoId, motivo));
     }
 

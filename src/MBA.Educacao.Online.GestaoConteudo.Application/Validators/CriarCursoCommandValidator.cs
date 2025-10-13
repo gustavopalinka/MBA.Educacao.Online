@@ -1,25 +1,21 @@
 using FluentValidation;
 using MBA.Educacao.Online.GestaoConteudo.Application.Commands;
-using MBA.Educacao.Online.GestaoConteudo.Domain;
 
 namespace MBA.Educacao.Online.GestaoConteudo.Application.Commands;
 
-/// <summary>
-/// Validador para CriarCursoCommand
-/// </summary>
 public class CriarCursoCommandValidator : AbstractValidator<CriarCursoCommand>
 {
     public CriarCursoCommandValidator()
     {
         RuleFor(c => c.Nome)
             .NotEmpty().WithMessage("O nome do curso é obrigatório")
-            .MaximumLength(Curso.NomeMaxLength)
-            .WithMessage($"O nome do curso deve ter no máximo {Curso.NomeMaxLength} caracteres");
+            .MaximumLength(200)
+            .WithMessage("O nome do curso deve ter no máximo 200 caracteres");
 
         RuleFor(c => c.Descricao)
             .NotEmpty().WithMessage("A descrição do curso é obrigatória")
-            .MaximumLength(Curso.DescricaoMaxLength)
-            .WithMessage($"A descrição do curso deve ter no máximo {Curso.DescricaoMaxLength} caracteres");
+            .MaximumLength(1000)
+            .WithMessage("A descrição do curso deve ter no máximo 1000 caracteres");
 
         RuleFor(c => c.Valor)
             .GreaterThanOrEqualTo(0).WithMessage("O valor do curso não pode ser negativo");
@@ -29,23 +25,22 @@ public class CriarCursoCommandValidator : AbstractValidator<CriarCursoCommand>
 
         RuleFor(c => c.PublicoAlvo)
             .NotEmpty().WithMessage("O público alvo é obrigatório")
-            .MaximumLength(Curso.PublicoAlvoMaxLength)
-            .WithMessage($"O público alvo deve ter no máximo {Curso.PublicoAlvoMaxLength} caracteres");
+            .MaximumLength(300)
+            .WithMessage("O público alvo deve ter no máximo 300 caracteres");
 
         RuleFor(c => c.Objetivo)
             .NotEmpty().WithMessage("O objetivo é obrigatório")
-            .MaximumLength(Curso.ObjetivoMaxLength)
-            .WithMessage($"O objetivo deve ter no máximo {Curso.ObjetivoMaxLength} caracteres");
+            .MaximumLength(500)
+            .WithMessage("O objetivo deve ter no máximo 500 caracteres");
 
         RuleFor(c => c.Requisitos)
             .NotEmpty().WithMessage("Os requisitos são obrigatórios")
-            .MaximumLength(Curso.RequisitosMaxLength)
-            .WithMessage($"Os requisitos devem ter no máximo {Curso.RequisitosMaxLength} caracteres");
+            .MaximumLength(500)
+            .WithMessage("Os requisitos devem ter no máximo 500 caracteres");
 
         RuleFor(c => c.ConteudoProgramatico)
             .NotEmpty().WithMessage("O conteúdo programático é obrigatório")
-            .MaximumLength(ConteudoProgramatico.DescricaoMaxLength)
-            .WithMessage($"O conteúdo programático deve ter no máximo {ConteudoProgramatico.DescricaoMaxLength} caracteres");
+            .MaximumLength(1000)
+            .WithMessage("O conteúdo programático deve ter no máximo 1000 caracteres");
     }
 }
-

@@ -2,10 +2,6 @@ using MBA.Educacao.Online.Core.DomainObjects;
 
 namespace MBA.Educacao.Online.GestaoAlunos.Domain;
 
-/// <summary>
-/// Entity: Matricula
-/// Representa a matrícula de um aluno em um curso
-/// </summary>
 public class Matricula : Entity
 {
     protected Matricula() { }
@@ -15,7 +11,7 @@ public class Matricula : Entity
         AlunoId = alunoId;
         CursoId = cursoId;
         DataMatricula = dataMatricula;
-        DataValidade = dataMatricula.AddYears(2); // Validade de 2 anos
+        DataValidade = dataMatricula.AddYears(2);
         Status = StatusMatricula.Pendente;
         Ativo = true;
     }
@@ -27,11 +23,8 @@ public class Matricula : Entity
     public DateTime? DataConclusao { get; private set; }
     public StatusMatricula Status { get; private set; }
     public bool Ativo { get; private set; }
-
-    // Navegação
     public virtual Aluno Aluno { get; private set; }
 
-    // Comportamentos
     public void AlterarStatus(bool ativo) => Ativo = ativo;
 
     public void Ativar()
@@ -57,9 +50,6 @@ public class Matricula : Entity
     }
 }
 
-/// <summary>
-/// Enum: Status da Matrícula
-/// </summary>
 public enum StatusMatricula
 {
     Pendente = 0,
@@ -67,4 +57,3 @@ public enum StatusMatricula
     Concluida = 2,
     Cancelada = 3
 }
-

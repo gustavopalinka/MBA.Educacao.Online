@@ -4,9 +4,6 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace MBA.Educacao.Online.GestaoConteudo.Data.Mappings;
 
-/// <summary>
-/// Mapeamento EF Core para a entidade Curso
-/// </summary>
 public class CursoMapping : IEntityTypeConfiguration<Curso>
 {
     public void Configure(EntityTypeBuilder<Curso> builder)
@@ -14,14 +11,13 @@ public class CursoMapping : IEntityTypeConfiguration<Curso>
         builder.ToTable("Cursos");
         builder.HasKey(c => c.Id);
 
-        // Propriedades básicas
         builder.Property(c => c.Nome)
-               .HasMaxLength(Curso.NomeMaxLength)
+               .HasMaxLength(200)
                .IsUnicode(false)
                .IsRequired();
 
         builder.Property(c => c.Descricao)
-               .HasMaxLength(Curso.DescricaoMaxLength)
+               .HasMaxLength(1000)
                .IsUnicode(false)
                .IsRequired();
 
@@ -33,17 +29,17 @@ public class CursoMapping : IEntityTypeConfiguration<Curso>
                .IsRequired();
 
         builder.Property(c => c.PublicoAlvo)
-               .HasMaxLength(Curso.PublicoAlvoMaxLength)
+               .HasMaxLength(300)
                .IsUnicode(false)
                .IsRequired();
 
         builder.Property(c => c.Objetivo)
-               .HasMaxLength(Curso.ObjetivoMaxLength)
+               .HasMaxLength(500)
                .IsUnicode(false)
                .IsRequired();
 
         builder.Property(c => c.Requisitos)
-               .HasMaxLength(Curso.RequisitosMaxLength)
+               .HasMaxLength(500)
                .IsUnicode(false)
                .IsRequired();
 
@@ -53,12 +49,11 @@ public class CursoMapping : IEntityTypeConfiguration<Curso>
         builder.Property(c => c.Ativo)
                .IsRequired();
 
-        // Value Object - ConteudoProgramatico (Owned Entity)
         builder.OwnsOne(c => c.ConteudoProgramatico, cp =>
         {
             cp.Property(p => p.ConteudoDescricao)
               .HasColumnName("ConteudoDescricao")
-              .HasMaxLength(ConteudoProgramatico.DescricaoMaxLength)
+              .HasMaxLength(1000)
               .IsUnicode(false)
               .IsRequired();
 
@@ -71,15 +66,12 @@ public class CursoMapping : IEntityTypeConfiguration<Curso>
               .IsRequired();
         });
 
-        // Relacionamento com Aulas
         builder.HasMany(c => c.Aulas)
                .WithOne(a => a.Curso)
                .HasForeignKey(a => a.CursoId)
                .OnDelete(DeleteBehavior.Cascade);
 
-        // Índices para performance
         builder.HasIndex(c => c.Nome);
         builder.HasIndex(c => c.Ativo);
     }
 }
-

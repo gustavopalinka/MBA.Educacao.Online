@@ -4,9 +4,6 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MBA.Educacao.Online.GestaoConteudo.Data.Repositories;
 
-/// <summary>
-/// Implementação do repositório de Curso
-/// </summary>
 public class CursoRepository : ICursoRepository
 {
     private readonly ConteudoContext _context;
@@ -70,4 +67,3 @@ public class CursoRepository : ICursoRepository
         _context?.Dispose();
     }
 }
-

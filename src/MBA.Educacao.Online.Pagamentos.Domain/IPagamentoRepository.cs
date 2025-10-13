@@ -2,9 +2,6 @@ using MBA.Educacao.Online.Core.Data;
 
 namespace MBA.Educacao.Online.Pagamentos.Domain;
 
-/// <summary>
-/// Interface do repositório de Pagamento
-/// </summary>
 public interface IPagamentoRepository : IRepository<Pagamento>
 {
     Task<Pagamento?> ObterPorId(Guid id);

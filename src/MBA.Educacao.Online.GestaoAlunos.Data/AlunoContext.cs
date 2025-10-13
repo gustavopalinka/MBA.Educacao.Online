@@ -5,9 +5,6 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MBA.Educacao.Online.GestaoAlunos.Data;
 
-/// <summary>
-/// DbContext para o Bounded Context de Gestão de Alunos
-/// </summary>
 public class AlunoContext : DbContext, IUnitOfWork
 {
     public AlunoContext(DbContextOptions<AlunoContext> options)
@@ -43,4 +40,3 @@ public class AlunoContext : DbContext, IUnitOfWork
         return await base.SaveChangesAsync() > 0;
     }
 }
-

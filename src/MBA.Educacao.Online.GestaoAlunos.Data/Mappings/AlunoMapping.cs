@@ -12,11 +12,11 @@ public class AlunoMapping : IEntityTypeConfiguration<Aluno>
         builder.HasKey(a => a.Id);
 
         builder.Property(a => a.Nome)
-               .HasMaxLength(Aluno.NomeMaxLength)
+               .HasMaxLength(200)
                .IsRequired();
 
         builder.Property(a => a.Email)
-               .HasMaxLength(Aluno.EmailMaxLength)
+               .HasMaxLength(200)
                .IsRequired();
 
         builder.Property(a => a.DataCadastro)
@@ -25,22 +25,11 @@ public class AlunoMapping : IEntityTypeConfiguration<Aluno>
         builder.Property(a => a.Ativo)
                .IsRequired();
 
-        // Value Object - HistoricoAprendizado (Owned Entity)
         builder.OwnsOne(a => a.HistoricoAprendizado, h =>
         {
-            h.OwnsMany(ha => ha.AulasConcluidas, ac =>
-            {
-                ac.ToTable("HistoricoAulas");
-                ac.WithOwner().HasForeignKey("AlunoId");
-                ac.Property<Guid>("Id");
-                ac.HasKey("Id");
-                ac.Property(p => p.CursoId).IsRequired();
-                ac.Property(p => p.AulaId).IsRequired();
-                ac.Property(p => p.DataAprendizado).IsRequired();
-            });
+            h.Ignore(ha => ha.AulasConcluidas);
         });
 
-        // Relacionamentos
         builder.HasMany(a => a.Matriculas)
                .WithOne(m => m.Aluno)
                .HasForeignKey(m => m.AlunoId)
@@ -54,4 +43,3 @@ public class AlunoMapping : IEntityTypeConfiguration<Aluno>
         builder.HasIndex(a => a.Email).IsUnique();
     }
 }
-

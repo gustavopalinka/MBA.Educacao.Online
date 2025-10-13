@@ -16,7 +16,7 @@ public class CertificadoMapping : IEntityTypeConfiguration<Certificado>
         builder.Property(c => c.DataEmissao).IsRequired();
         
         builder.Property(c => c.Codigo)
-               .HasMaxLength(Certificado.CodigoMaxLength)
+               .HasMaxLength(50)
                .IsRequired();
 
         builder.Property(c => c.Valido).IsRequired();
@@ -25,4 +25,3 @@ public class CertificadoMapping : IEntityTypeConfiguration<Certificado>
         builder.HasIndex(c => new { c.AlunoId, c.CursoId });
     }
 }
-

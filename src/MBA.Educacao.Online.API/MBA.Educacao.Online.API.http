@@ -1,0 +1,6 @@
+@MBA.Educacao.Online.API_HostAddress = http://localhost:5298
+
+GET {{MBA.Educacao.Online.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

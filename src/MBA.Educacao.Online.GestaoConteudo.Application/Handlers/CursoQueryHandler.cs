@@ -5,10 +5,6 @@ using MediatR;
 
 namespace MBA.Educacao.Online.GestaoConteudo.Application.Handlers;
 
-/// <summary>
-/// Handler para Queries relacionadas a Curso
-/// Lado de leitura do CQRS
-/// </summary>
 public class CursoQueryHandler :
     IRequestHandler<ObterCursosAtivoQuery, IEnumerable<CursoDTO>>,
     IRequestHandler<ObterCursoPorIdQuery, CursoDTO?>
@@ -73,4 +69,3 @@ public class CursoQueryHandler :
         };
     }
 }
-

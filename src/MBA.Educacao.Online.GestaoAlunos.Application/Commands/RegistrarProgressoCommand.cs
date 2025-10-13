@@ -2,10 +2,6 @@ using MBA.Educacao.Online.Core.Messages;
 
 namespace MBA.Educacao.Online.GestaoAlunos.Application.Commands;
 
-/// <summary>
-/// Command para registrar o progresso do aluno em uma aula
-/// Caso de Uso: Realização da Aula (do PDF)
-/// </summary>
 public class RegistrarProgressoCommand : Command
 {
     public RegistrarProgressoCommand(Guid alunoId, Guid cursoId, Guid aulaId)
@@ -24,4 +20,3 @@ public class RegistrarProgressoCommand : Command
         return AlunoId != Guid.Empty && CursoId != Guid.Empty && AulaId != Guid.Empty;
     }
 }
-

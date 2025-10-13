@@ -3,9 +3,6 @@ using MediatR;
 
 namespace MBA.Educacao.Online.Core.Messages;
 
-/// <summary>
-/// Classe base para todos os Commands (CQRS).
-/// </summary>
 public abstract class Command : Message, IRequest<bool>
 {
     public DateTime Timestamp { get; private set; }
@@ -21,4 +18,3 @@ public abstract class Command : Message, IRequest<bool>
         throw new NotImplementedException();
     }
 }
-

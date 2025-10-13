@@ -1,9 +1,5 @@
 namespace MBA.Educacao.Online.GestaoAlunos.Domain;
 
-/// <summary>
-/// Value Object: HistoricoAprendizado
-/// Representa o histórico de aulas concluídas pelo aluno
-/// </summary>
 public class HistoricoAprendizado
 {
     private readonly List<AulaConcluida> _aulasConcluidas;
@@ -17,7 +13,6 @@ public class HistoricoAprendizado
 
     public void RegistrarAulaConcluida(Guid cursoId, Guid aulaId)
     {
-        // Não registra duplicado
         if (_aulasConcluidas.Any(a => a.AulaId == aulaId))
             return;
 
@@ -38,11 +33,10 @@ public class HistoricoAprendizado
     }
 }
 
-/// <summary>
-/// Representa uma aula concluída no histórico
-/// </summary>
 public class AulaConcluida
 {
+    protected AulaConcluida() { }
+
     public AulaConcluida(Guid cursoId, Guid aulaId, DateTime dataAprendizado)
     {
         CursoId = cursoId;
@@ -54,4 +48,3 @@ public class AulaConcluida
     public Guid AulaId { get; private set; }
     public DateTime DataAprendizado { get; private set; }
 }
-

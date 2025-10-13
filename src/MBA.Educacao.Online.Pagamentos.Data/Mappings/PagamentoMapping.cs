@@ -39,7 +39,10 @@ public class PagamentoMapping : IEntityTypeConfiguration<Pagamento>
               .HasMaxLength(7)
               .IsRequired();
 
-            dc.Ignore(d => d.CVV); // CVV não deve ser persistido!
+            dc.Property(d => d.CVV)
+              .HasColumnName("CVV")
+              .HasMaxLength(4)
+              .IsRequired();
         });
 
         // Value Object - StatusPagamento (Owned Entity)
@@ -61,4 +64,3 @@ public class PagamentoMapping : IEntityTypeConfiguration<Pagamento>
         builder.HasIndex(p => p.DataPagamento);
     }
 }
-

@@ -2,28 +2,26 @@ using MBA.Educacao.Online.Core.DomainObjects;
 
 namespace MBA.Educacao.Online.Pagamentos.Domain;
 
-/// <summary>
-/// Value Object: DadosCartao
-/// Representa os dados de um cartão de crédito (sensíveis)
-/// </summary>
 public class DadosCartao
 {
+    protected DadosCartao() { }
+
     public DadosCartao(string numeroCartao, string nomeTitular, string validade, string cvv)
     {
         ValidarDadosCartao(numeroCartao, nomeTitular, validade, cvv);
         
         NumeroCartao = MascararNumeroCartao(numeroCartao);
-        NumeroCartaoCompleto = numeroCartao; // Em produção, deve ser criptografado!
+        NumeroCartaoCompleto = numeroCartao;
         NomeTitular = nomeTitular;
         Validade = validade;
-        CVV = cvv; // Em produção, NÃO deve ser armazenado!
+        CVV = cvv;
     }
 
-    public string NumeroCartao { get; private set; } // Mascarado: **** **** **** 1234
-    private string NumeroCartaoCompleto { get; set; } // Somente para processamento
-    public string NomeTitular { get; private set; }
-    public string Validade { get; private set; }
-    private string CVV { get; set; } // Não expor publicamente
+    public string NumeroCartao { get; private set; } = string.Empty;
+    private string NumeroCartaoCompleto { get; set; } = string.Empty;
+    public string NomeTitular { get; private set; } = string.Empty;
+    public string Validade { get; private set; } = string.Empty;
+    public string CVV { get; private set; } = string.Empty;
 
     private void ValidarDadosCartao(string numeroCartao, string nomeTitular, string validade, string cvv)
     {
@@ -32,7 +30,6 @@ public class DadosCartao
         Validacoes.ValidarSeVazio(validade, "A validade do cartão é obrigatória");
         Validacoes.ValidarSeVazio(cvv, "O CVV é obrigatório");
 
-        // Validação básica de comprimento
         if (numeroCartao.Length < 13 || numeroCartao.Length > 19)
             throw new DomainException("Número do cartão inválido");
 

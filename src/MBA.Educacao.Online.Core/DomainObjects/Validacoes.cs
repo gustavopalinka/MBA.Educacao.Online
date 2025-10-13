@@ -2,9 +2,6 @@ using System.Text.RegularExpressions;
 
 namespace MBA.Educacao.Online.Core.DomainObjects;
 
-/// <summary>
-/// Classe utilitária para validações de domínio.
-/// </summary>
 public static class Validacoes
 {
     public static void ValidarSeIgual(object object1, object object2, string mensagem)
@@ -155,4 +152,3 @@ public static class Validacoes
         }
     }
 }
-

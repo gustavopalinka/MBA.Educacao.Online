@@ -5,9 +5,6 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MBA.Educacao.Online.GestaoConteudo.Data;
 
-/// <summary>
-/// DbContext para o Bounded Context de Gestão de Conteúdo
-/// </summary>
 public class ConteudoContext : DbContext, IUnitOfWork
 {
     public ConteudoContext(DbContextOptions<ConteudoContext> options)
@@ -18,21 +15,13 @@ public class ConteudoContext : DbContext, IUnitOfWork
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        // Ignora eventos de domínio (não persistimos eventos no banco)
         modelBuilder.Ignore<Event>();
-
-        // Aplica todas as configurações de mapeamento do assembly
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(ConteudoContext).Assembly);
-        
         base.OnModelCreating(modelBuilder);
     }
 
-    /// <summary>
-    /// Implementação do Unit of Work para persistir mudanças
-    /// </summary>
     public async Task<bool> Commit()
     {
-        // Define DataCadastro automaticamente ao adicionar entidades
         foreach (var entry in ChangeTracker.Entries()
             .Where(entry => entry.Entity.GetType().GetProperty("DataCadastro") != null))
         {
@@ -51,4 +40,3 @@ public class ConteudoContext : DbContext, IUnitOfWork
         return success;
     }
 }
-

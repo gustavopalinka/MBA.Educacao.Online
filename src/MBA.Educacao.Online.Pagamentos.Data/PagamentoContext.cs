@@ -5,9 +5,6 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MBA.Educacao.Online.Pagamentos.Data;
 
-/// <summary>
-/// DbContext para o Bounded Context de Pagamentos
-/// </summary>
 public class PagamentoContext : DbContext, IUnitOfWork
 {
     public PagamentoContext(DbContextOptions<PagamentoContext> options)
@@ -41,4 +38,3 @@ public class PagamentoContext : DbContext, IUnitOfWork
         return await base.SaveChangesAsync() > 0;
     }
 }
-
