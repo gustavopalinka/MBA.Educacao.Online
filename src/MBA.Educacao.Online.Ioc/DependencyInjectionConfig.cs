@@ -6,6 +6,7 @@ using MBA.Educacao.Online.GestaoConteudo.Application.Commands;
 using MBA.Educacao.Online.GestaoConteudo.Data;
 using MBA.Educacao.Online.GestaoConteudo.Data.Repositories;
 using MBA.Educacao.Online.GestaoConteudo.Domain;
+using MBA.Educacao.Online.Pagamentos.Application.Commands;
 using MBA.Educacao.Online.Pagamentos.Data;
 using MBA.Educacao.Online.Pagamentos.Data.Repositories;
 using MBA.Educacao.Online.Pagamentos.Domain;
@@ -85,5 +86,6 @@ public static class DependencyInjectionConfig
     {
         services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(MatricularAlunoCommand).Assembly));
         services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(CriarCursoCommand).Assembly));
+        services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(RealizarPagamentoCommand).Assembly));
     }
 }

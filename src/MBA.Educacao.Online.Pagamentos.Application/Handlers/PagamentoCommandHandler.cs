@@ -1,3 +1,6 @@
+using System.Threading;
+using System.Threading.Tasks;
+using MBA.Educacao.Online.Core.Messages;
 using MBA.Educacao.Online.Pagamentos.Application.Commands;
 using MBA.Educacao.Online.Pagamentos.Domain;
 using MediatR;
@@ -13,10 +16,13 @@ public class PagamentoCommandHandler :
     IRequestHandler<ConfirmarPagamentoCommand, bool>
 {
     private readonly IPagamentoRepository _pagamentoRepository;
+    private readonly IMediator _mediator;
 
-    public PagamentoCommandHandler(IPagamentoRepository pagamentoRepository)
+    public PagamentoCommandHandler(IPagamentoRepository pagamentoRepository,
+                                   IMediator mediator)
     {
         _pagamentoRepository = pagamentoRepository;
+        _mediator = mediator;
     }
 
     /// <summary>
@@ -63,7 +69,16 @@ public class PagamentoCommandHandler :
         _pagamentoRepository.Adicionar(pagamento);
 
         // Commit (Unit of Work)
-        return await _pagamentoRepository.UnitOfWork.Commit();
+        var sucesso = await _pagamentoRepository.UnitOfWork.Commit();
+
+        if (!sucesso)
+        {
+            return false;
+        }
+
+        await PublicarEventos(pagamento);
+
+        return true;
     }
 
     /// <summary>
@@ -87,7 +102,16 @@ public class PagamentoCommandHandler :
 
         _pagamentoRepository.Atualizar(pagamento);
 
-        return await _pagamentoRepository.UnitOfWork.Commit();
+        var sucesso = await _pagamentoRepository.UnitOfWork.Commit();
+
+        if (!sucesso)
+        {
+            return false;
+        }
+
+        await PublicarEventos(pagamento);
+
+        return true;
     }
 
     /// <summary>
@@ -99,6 +123,21 @@ public class PagamentoCommandHandler :
         // Simulação simples: cartões terminados em número par = aprovado
         var ultimoDigito = int.Parse(numeroCartao.Substring(numeroCartao.Length - 1));
         return ultimoDigito % 2 == 0;
+    }
+
+    private async Task PublicarEventos(Pagamento pagamento)
+    {
+        if (pagamento.Notificacoes is null)
+        {
+            return;
+        }
+
+        foreach (var domainEvent in pagamento.Notificacoes)
+        {
+            await _mediator.Publish(domainEvent);
+        }
+
+        pagamento.LimparEventos();
     }
 }
 

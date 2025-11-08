@@ -1,5 +1,6 @@
 using MBA.Educacao.Online.Core.Extensions;
 using MBA.Educacao.Online.GestaoAlunos.Application.Commands;
+using MBA.Educacao.Online.GestaoAlunos.Application.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -17,6 +18,21 @@ public class MatriculaController : ControllerBase
     public MatriculaController(IMediator mediator)
     {
         _mediator = mediator;
+    }
+
+    [HttpGet]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    public async Task<IActionResult> ObterMatriculas()
+    {
+        var alunoId = User.FindFirst(ClaimTypes.Name)?.Value.ToGuid();
+
+        if (alunoId == null || alunoId == Guid.Empty)
+            return Unauthorized("Usuário não autenticado");
+
+        var query = new ObterMatriculasAlunoQuery(alunoId.Value);
+        var matriculas = await _mediator.Send(query);
+
+        return Ok(matriculas);
     }
 
     [HttpPost]
@@ -55,6 +71,38 @@ public class MatriculaController : ControllerBase
             return BadRequest("Erro ao registrar progresso");
 
         return Ok("Progresso registrado com sucesso");
+    }
+
+    [HttpGet("progresso/{cursoId:guid}")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    public async Task<IActionResult> ObterProgresso(Guid cursoId)
+    {
+        var alunoId = User.FindFirst(ClaimTypes.Name)?.Value.ToGuid();
+
+        if (alunoId == null || alunoId == Guid.Empty)
+            return Unauthorized("Usuário não autenticado");
+
+        var query = new ObterProgressoCursoQuery(alunoId.Value, cursoId);
+        var progresso = await _mediator.Send(query);
+
+        return Ok(progresso);
+    }
+
+    [HttpGet("certificados")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    public async Task<IActionResult> ObterCertificados()
+    {
+        var alunoId = User.FindFirst(ClaimTypes.Name)?.Value.ToGuid();
+
+        if (alunoId == null || alunoId == Guid.Empty)
+            return Unauthorized("Usuário não autenticado");
+
+        var query = new ObterCertificadosAlunoQuery(alunoId.Value);
+        var certificados = await _mediator.Send(query);
+
+        return Ok(certificados);
     }
 
     [HttpPost("finalizar")]

@@ -25,9 +25,19 @@ public class AlunoMapping : IEntityTypeConfiguration<Aluno>
         builder.Property(a => a.Ativo)
                .IsRequired();
 
-        builder.OwnsOne(a => a.HistoricoAprendizado, h =>
+        builder.OwnsOne(a => a.HistoricoAprendizado, historico =>
         {
-            h.Ignore(ha => ha.AulasConcluidas);
+            historico.Ignore(h => h.AulasConcluidas);
+
+            historico.OwnsMany(h => h.AulasConcluidasEf, aulas =>
+            {
+                aulas.ToTable("AulasConcluidas");
+                aulas.WithOwner().HasForeignKey("AlunoId");
+                aulas.HasKey(a => a.Id);
+                aulas.Property(a => a.CursoId).IsRequired();
+                aulas.Property(a => a.AulaId).IsRequired();
+                aulas.Property(a => a.DataAprendizado).IsRequired();
+            });
         });
 
         builder.HasMany(a => a.Matriculas)

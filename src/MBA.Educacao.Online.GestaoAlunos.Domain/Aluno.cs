@@ -8,6 +8,7 @@ public class Aluno : Entity, IAggregateRoot
     {
         Matriculas = new List<Matricula>();
         Certificados = new List<Certificado>();
+        HistoricoAprendizado = new HistoricoAprendizado();
     }
 
     public Aluno(Guid usuarioId, string nome, string email, HistoricoAprendizado? historicoAprendizado = null)

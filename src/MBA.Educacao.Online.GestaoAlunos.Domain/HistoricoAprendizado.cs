@@ -10,6 +10,7 @@ public class HistoricoAprendizado
     }
 
     public IReadOnlyCollection<AulaConcluida> AulasConcluidas => _aulasConcluidas.AsReadOnly();
+    public ICollection<AulaConcluida> AulasConcluidasEf => _aulasConcluidas;
 
     public void RegistrarAulaConcluida(Guid cursoId, Guid aulaId)
     {
@@ -39,11 +40,13 @@ public class AulaConcluida
 
     public AulaConcluida(Guid cursoId, Guid aulaId, DateTime dataAprendizado)
     {
+        Id = Guid.NewGuid();
         CursoId = cursoId;
         AulaId = aulaId;
         DataAprendizado = dataAprendizado;
     }
 
+    public Guid Id { get; private set; }
     public Guid CursoId { get; private set; }
     public Guid AulaId { get; private set; }
     public DateTime DataAprendizado { get; private set; }
