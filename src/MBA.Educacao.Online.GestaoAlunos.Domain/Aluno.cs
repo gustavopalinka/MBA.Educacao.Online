@@ -4,12 +4,7 @@ namespace MBA.Educacao.Online.GestaoAlunos.Domain;
 
 public class Aluno : Entity, IAggregateRoot
 {
-    protected Aluno() 
-    {
-        Matriculas = new List<Matricula>();
-        Certificados = new List<Certificado>();
-        HistoricoAprendizado = new HistoricoAprendizado();
-    }
+    protected Aluno() { }
 
     public Aluno(Guid usuarioId, string nome, string email, HistoricoAprendizado? historicoAprendizado = null)
     {
@@ -25,13 +20,13 @@ public class Aluno : Entity, IAggregateRoot
         Certificados = new List<Certificado>();
     }
 
-    public string Nome { get; private set; }
-    public string Email { get; private set; }
+    public string Nome { get; private set; } = string.Empty;
+    public string Email { get; private set; } = string.Empty;
     public DateTime DataCadastro { get; private set; }
     public bool Ativo { get; private set; }
-    public HistoricoAprendizado HistoricoAprendizado { get; private set; }
-    public ICollection<Matricula> Matriculas { get; private set; }
-    public ICollection<Certificado> Certificados { get; private set; }
+    public HistoricoAprendizado HistoricoAprendizado { get; private set; } = new();
+    public ICollection<Matricula> Matriculas { get; private set; } = new List<Matricula>();
+    public ICollection<Certificado> Certificados { get; private set; } = new List<Certificado>();
 
     public void AlterarStatus(bool ativo) => Ativo = ativo;
 
@@ -51,7 +46,7 @@ public class Aluno : Entity, IAggregateRoot
     public void ConcluirCurso(Guid cursoId, Guid matriculaId)
     {
         var matricula = Matriculas.FirstOrDefault(m => m.Id == matriculaId);
-        if (matricula != null)
+        if (matricula is not null)
         {
             matricula.Concluir();
             var codigoCertificado = GerarCodigoCertificado(cursoId);

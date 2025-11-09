@@ -79,7 +79,7 @@ public class PagamentoCommandHandler :
 
         var pagamento = await _pagamentoRepository.ObterPorId(request.PagamentoId);
 
-        if (pagamento == null)
+        if (pagamento is null)
         {
             await NotificarErro(request.MessageType, "Pagamento não encontrado.");
             return false;

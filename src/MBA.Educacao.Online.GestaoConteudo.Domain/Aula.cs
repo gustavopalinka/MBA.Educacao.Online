@@ -4,7 +4,12 @@ namespace MBA.Educacao.Online.GestaoConteudo.Domain;
 
 public class Aula : Entity
 {
-    protected Aula() { }
+    protected Aula()
+    {
+        Codigo = string.Empty;
+        Titulo = string.Empty;
+        Descricao = string.Empty;
+    }
 
     public Aula(string codigo, string titulo, string descricao, int ordem, Guid cursoId)
     {
@@ -19,14 +24,14 @@ public class Aula : Entity
         Ativo = true;
     }
 
-    public string Codigo { get; private set; }
-    public string Titulo { get; private set; }
-    public string Descricao { get; private set; }
+    public string Codigo { get; private set; } = string.Empty;
+    public string Titulo { get; private set; } = string.Empty;
+    public string Descricao { get; private set; } = string.Empty;
     public int Ordem { get; private set; }
     public Guid CursoId { get; private set; }
     public DateTime DataCadastro { get; private set; }
     public bool Ativo { get; private set; }
-    public virtual Curso Curso { get; private set; }
+    public virtual Curso Curso { get; private set; } = null!;
 
     public void AlterarEstado(bool ativo) => Ativo = ativo;
 

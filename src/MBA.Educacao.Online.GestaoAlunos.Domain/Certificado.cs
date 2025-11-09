@@ -20,9 +20,9 @@ public class Certificado : Entity
     public Guid AlunoId { get; private set; }
     public Guid CursoId { get; private set; }
     public DateTime DataEmissao { get; private set; }
-    public string Codigo { get; private set; }
+    public string Codigo { get; private set; } = string.Empty;
     public bool Valido { get; private set; }
-    public virtual Aluno Aluno { get; private set; }
+    public virtual Aluno Aluno { get; private set; } = null!;
 
     public void Invalidar() => Valido = false;
 
