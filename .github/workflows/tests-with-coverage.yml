@@ -32,12 +32,10 @@ jobs:
         run: dotnet tool install --global dotnet-reportgenerator-globaltool
 
       - name: Generate HTML report
-        run: >
-          reportgenerator
-          -reports:tests/**/TestResults/coverage/coverage.cobertura.xml
-          -targetdir:TestResults/coverage/report
-        env:
-          PATH: ${{ env.PATH }};${{ env.USERPROFILE }}\.dotnet\tools
+        shell: pwsh
+        run: |
+          $env:PATH += ";$env:USERPROFILE\.dotnet\tools"
+          reportgenerator -reports:tests/**/TestResults/coverage/coverage.cobertura.xml -targetdir:TestResults/coverage/report
 
       - name: Upload coverage artifact
         uses: actions/upload-artifact@v4
