@@ -1,8 +1,5 @@
 namespace MBA.Educacao.Online.GestaoConteudo.Application.DTOs;
 
-/// <summary>
-/// DTO para retorno de dados de Curso
-/// </summary>
 public class CursoDTO
 {
     public Guid Id { get; set; }
@@ -19,9 +16,6 @@ public class CursoDTO
     public List<AulaDTO> Aulas { get; set; } = new();
 }
 
-/// <summary>
-/// DTO para retorno de dados de Aula
-/// </summary>
 public class AulaDTO
 {
     public Guid Id { get; set; }

@@ -1,10 +1,13 @@
+using System;
+using System.Threading;
 using FluentAssertions;
-using Moq;
 using MBA.Educacao.Online.Core.Data;
+using MBA.Educacao.Online.Core.Mediator;
 using MBA.Educacao.Online.GestaoAlunos.Application.Commands;
 using MBA.Educacao.Online.GestaoAlunos.Application.Handlers;
 using MBA.Educacao.Online.GestaoAlunos.Domain;
 using MBA.Educacao.Online.GestaoConteudo.Domain;
+using Moq;
 using Xunit;
 
 namespace MBA.Educacao.Online.UnitTests.GestaoAlunos;
@@ -31,14 +34,18 @@ public class AlunoCommandHandlerTests
         var cursoRepository = new Mock<ICursoRepository>();
         cursoRepository.Setup(r => r.ObterPorId(cursoId)).ReturnsAsync(curso);
 
-        var handler = new AlunoCommandHandler(alunoRepository.Object, cursoRepository.Object);
+        var mediatorHandler = new Mock<IMediatorHandler>();
+
+        var handler = new AlunoCommandHandler(alunoRepository.Object, cursoRepository.Object, mediatorHandler.Object);
         var command = new MatricularAlunoCommand(alunoId, cursoId);
 
         var resultado = await handler.Handle(command, CancellationToken.None);
 
         resultado.Should().BeTrue();
         aluno.Matriculas.Should().ContainSingle(m => m.CursoId == cursoId);
+        alunoRepository.Verify(r => r.Atualizar(aluno), Times.Once);
         unitOfWork.Verify(u => u.Commit(), Times.Once);
+        mediatorHandler.Verify(m => m.PublicarNotificacao(It.IsAny<DomainNotification>()), Times.Never);
     }
 
     [Fact]
@@ -58,13 +65,17 @@ public class AlunoCommandHandlerTests
         var cursoRepository = new Mock<ICursoRepository>();
         cursoRepository.Setup(r => r.ObterPorId(cursoId)).ReturnsAsync((Curso?)null);
 
-        var handler = new AlunoCommandHandler(alunoRepository.Object, cursoRepository.Object);
+        var mediatorHandler = new Mock<IMediatorHandler>();
+
+        var handler = new AlunoCommandHandler(alunoRepository.Object, cursoRepository.Object, mediatorHandler.Object);
         var command = new MatricularAlunoCommand(alunoId, cursoId);
 
         var resultado = await handler.Handle(command, CancellationToken.None);
 
         resultado.Should().BeFalse();
+        alunoRepository.Verify(r => r.Atualizar(It.IsAny<Aluno>()), Times.Never);
         unitOfWork.Verify(u => u.Commit(), Times.Never);
+        mediatorHandler.Verify(m => m.PublicarNotificacao(It.IsAny<DomainNotification>()), Times.AtLeastOnce);
     }
 }
 

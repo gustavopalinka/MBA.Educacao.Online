@@ -1,22 +1,20 @@
 using System.Security.Claims;
 using MBA.Educacao.Online.Core.Extensions;
+using MBA.Educacao.Online.Core.Mediator;
 using MBA.Educacao.Online.Pagamentos.Application.Commands;
-using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace MBA.Educacao.Online.API.Controllers;
 
-[ApiController]
 [Route("api/[controller]")]
-public class PagamentoController : ControllerBase
+public class PagamentoController : MainController
 {
-    private readonly IMediator _mediator;
-
-    public PagamentoController(IMediator mediator)
-    {
-        _mediator = mediator;
-    }
+    public PagamentoController(DomainNotificationHandler notifications,
+                               IMediatorHandler mediatorHandler)
+        : base(notifications, mediatorHandler)
+    { }
 
     [HttpPost]
     [Authorize(Roles = "Aluno")]
@@ -25,6 +23,12 @@ public class PagamentoController : ControllerBase
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     public async Task<IActionResult> RealizarPagamento([FromBody] RealizarPagamentoRequest request)
     {
+        if (!ModelState.IsValid)
+        {
+            await NotificarErroModelInvalido();
+            return CustomResponse();
+        }
+
         var alunoId = User.FindFirst(ClaimTypes.Name)?.Value.ToGuid();
 
         if (alunoId is null || alunoId == Guid.Empty)
@@ -41,14 +45,14 @@ public class PagamentoController : ControllerBase
             request.Validade,
             request.CVV);
 
-        var resultado = await _mediator.Send(command);
+        var resultado = await MediatorHandler.EnviarComando(command);
 
         if (!resultado)
         {
-            return BadRequest("Não foi possível processar o pagamento.");
+            return CustomResponse();
         }
 
-        return Ok("Pagamento registrado. Aguarde confirmação.");
+        return CustomResponse(new { message = "Pagamento registrado. Aguarde confirmação." });
     }
 
     [HttpPost("{pagamentoId:guid}/confirmar")]
@@ -59,14 +63,14 @@ public class PagamentoController : ControllerBase
     public async Task<IActionResult> ConfirmarPagamento(Guid pagamentoId)
     {
         var command = new ConfirmarPagamentoCommand(pagamentoId);
-        var resultado = await _mediator.Send(command);
+        var resultado = await MediatorHandler.EnviarComando(command);
 
         if (!resultado)
         {
-            return NotFound("Pagamento não encontrado ou já confirmado.");
+            return CustomResponse();
         }
 
-        return Ok("Pagamento confirmado com sucesso.");
+        return CustomResponse(new { message = "Pagamento confirmado com sucesso." });
     }
 }
 

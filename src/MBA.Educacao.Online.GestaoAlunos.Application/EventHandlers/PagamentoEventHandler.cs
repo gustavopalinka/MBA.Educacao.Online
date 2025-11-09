@@ -35,6 +35,7 @@ public class PagamentoEventHandler :
         }
 
         matricula.Ativar();
+        _alunoRepository.Atualizar(aluno);
         await _alunoRepository.UnitOfWork.Commit();
     }
 
@@ -55,6 +56,7 @@ public class PagamentoEventHandler :
         }
 
         matricula.Cancelar();
+        _alunoRepository.Atualizar(aluno);
         await _alunoRepository.UnitOfWork.Commit();
     }
 }

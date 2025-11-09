@@ -1,4 +1,6 @@
+using FluentValidation.Results;
 using MBA.Educacao.Online.Core.Messages;
+using MBA.Educacao.Online.GestaoAlunos.Application.Commands.Validators;
 
 namespace MBA.Educacao.Online.GestaoAlunos.Application.Commands;
 
@@ -15,6 +17,7 @@ public class MatricularAlunoCommand : Command
 
     public override bool EhValido()
     {
-        return AlunoId != Guid.Empty && CursoId != Guid.Empty;
+        ValidationResult = new MatricularAlunoCommandValidator().Validate(this);
+        return ValidationResult.IsValid;
     }
 }

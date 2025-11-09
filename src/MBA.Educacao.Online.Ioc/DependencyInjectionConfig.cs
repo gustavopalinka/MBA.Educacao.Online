@@ -1,3 +1,4 @@
+using MBA.Educacao.Online.Core.Mediator;
 using MBA.Educacao.Online.GestaoAlunos.Application.Commands;
 using MBA.Educacao.Online.GestaoAlunos.Data;
 using MBA.Educacao.Online.GestaoAlunos.Data.Repositories;
@@ -11,6 +12,7 @@ using MBA.Educacao.Online.Pagamentos.Data;
 using MBA.Educacao.Online.Pagamentos.Data.Repositories;
 using MBA.Educacao.Online.Pagamentos.Domain;
 using MBA.Educacao.Online.Security.Data;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -24,6 +26,7 @@ public static class DependencyInjectionConfig
         AddDbContexts(services, configuration);
         AddRepositories(services);
         AddMediatR(services);
+        AddMediatorHandler(services);
         return services;
     }
 
@@ -87,5 +90,12 @@ public static class DependencyInjectionConfig
         services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(MatricularAlunoCommand).Assembly));
         services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(CriarCursoCommand).Assembly));
         services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(RealizarPagamentoCommand).Assembly));
+    }
+
+    private static void AddMediatorHandler(IServiceCollection services)
+    {
+        services.AddScoped<IMediatorHandler, MediatorHandler>();
+        services.AddScoped<DomainNotificationHandler>();
+        services.AddScoped<INotificationHandler<DomainNotification>>(sp => sp.GetRequiredService<DomainNotificationHandler>());
     }
 }

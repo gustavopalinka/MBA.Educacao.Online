@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using FluentAssertions;
 using MBA.Educacao.Online.Core.Data;
+using MBA.Educacao.Online.Core.Mediator;
 using MBA.Educacao.Online.GestaoAlunos.Application.Commands;
 using MBA.Educacao.Online.GestaoAlunos.Application.EventHandlers;
 using MBA.Educacao.Online.GestaoAlunos.Application.Handlers;
@@ -40,6 +41,10 @@ public class FluxoCompletoTests : IAsyncLifetime
             cfg.RegisterServicesFromAssembly(typeof(AlunoCommandHandler).Assembly);
             cfg.RegisterServicesFromAssembly(typeof(PagamentoCommandHandler).Assembly);
         });
+
+        services.AddScoped<IMediatorHandler, MediatorHandler>();
+        services.AddScoped<DomainNotificationHandler>();
+        services.AddScoped<INotificationHandler<DomainNotification>>(sp => sp.GetRequiredService<DomainNotificationHandler>());
 
         _provider = services.BuildServiceProvider();
     }

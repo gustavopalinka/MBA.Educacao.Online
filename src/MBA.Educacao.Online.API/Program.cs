@@ -1,12 +1,8 @@
 using MBA.Educacao.Online.Ioc;
 
 var builder = WebApplication.CreateBuilder(args);
-
-// Configurações
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
-
-// Swagger
 builder.Services.AddSwaggerGen(options =>
 {
     options.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
@@ -21,7 +17,6 @@ builder.Services.AddSwaggerGen(options =>
         }
     });
 
-    // Configurar JWT no Swagger
     options.AddSecurityDefinition("Bearer", new Microsoft.OpenApi.Models.OpenApiSecurityScheme
     {
         Description = "Insira o token JWT desta maneira: Bearer {seu token}",
@@ -48,7 +43,6 @@ builder.Services.AddSwaggerGen(options =>
     });
 });
 
-// CORS
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("Development", policy =>
@@ -62,15 +56,11 @@ builder.Services.AddCors(options =>
               .AllowAnyHeader());
 });
 
-// Dependências (IoC)
 builder.Services.AddDependencies(builder.Configuration);
-
-// Identity + JWT
 builder.Services.AddIdentityConfiguration(builder.Configuration);
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -82,7 +72,6 @@ else
     app.UseCors("Production");
 }
 
-// Garantir que os bancos sejam criados e populados
 app.EnsureDatabaseCreated();
 
 app.UseHttpsRedirection();

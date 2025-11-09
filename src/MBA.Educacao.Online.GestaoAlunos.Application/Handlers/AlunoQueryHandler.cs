@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -34,18 +35,24 @@ public class AlunoQueryHandler :
             return Enumerable.Empty<MatriculaDTO>();
         }
 
-        return aluno.Matriculas
-            .OrderByDescending(m => m.DataMatricula)
-            .Select(m => new MatriculaDTO
+        var resultado = new List<MatriculaDTO>();
+
+        foreach (var matricula in aluno.Matriculas.OrderByDescending(m => m.DataMatricula))
+        {
+            var curso = await _cursoRepository.ObterPorId(matricula.CursoId);
+            resultado.Add(new MatriculaDTO
             {
-                Id = m.Id,
-                CursoId = m.CursoId,
-                DataMatricula = m.DataMatricula,
-                DataValidade = m.DataValidade,
-                DataConclusao = m.DataConclusao,
-                Status = m.Status.ToString()
-            })
-            .ToList();
+                Id = matricula.Id,
+                CursoId = matricula.CursoId,
+                NomeCurso = curso?.Nome ?? "Curso não encontrado",
+                DataMatricula = matricula.DataMatricula,
+                DataValidade = matricula.DataValidade,
+                DataConclusao = matricula.DataConclusao,
+                Status = matricula.Status.ToString()
+            });
+        }
+
+        return resultado;
     }
 
     public async Task<IEnumerable<CertificadoDTO>> Handle(ObterCertificadosAlunoQuery request, CancellationToken cancellationToken)
@@ -57,16 +64,22 @@ public class AlunoQueryHandler :
             return Enumerable.Empty<CertificadoDTO>();
         }
 
-        return aluno.Certificados
-            .OrderByDescending(c => c.DataEmissao)
-            .Select(c => new CertificadoDTO
+        var resultado = new List<CertificadoDTO>();
+
+        foreach (var certificado in aluno.Certificados.OrderByDescending(c => c.DataEmissao))
+        {
+            var curso = await _cursoRepository.ObterPorId(certificado.CursoId);
+            resultado.Add(new CertificadoDTO
             {
-                Id = c.Id,
-                CursoId = c.CursoId,
-                DataEmissao = c.DataEmissao,
-                Codigo = c.Codigo
-            })
-            .ToList();
+                Id = certificado.Id,
+                CursoId = certificado.CursoId,
+                NomeCurso = curso?.Nome ?? "Curso não encontrado",
+                DataEmissao = certificado.DataEmissao,
+                CodigoCertificado = certificado.Codigo
+            });
+        }
+
+        return resultado;
     }
 
     public async Task<ProgressoCursoDTO?> Handle(ObterProgressoCursoQuery request, CancellationToken cancellationToken)
@@ -93,13 +106,23 @@ public class AlunoQueryHandler :
             ? 0
             : Math.Round((decimal)aulasConcluidas / totalAulas * 100, 2);
 
+        var aulas = curso?.Aulas?.Select(aula => new AulaProgressoDTO
+        {
+            AulaId = aula.Id,
+            TituloAula = aula.Titulo,
+            Concluida = aluno.HistoricoAprendizado.AulaJaConcluida(aula.Id),
+            DataConclusao = aluno.HistoricoAprendizado.ObterDataConclusao(aula.Id)
+        }).ToList() ?? new List<AulaProgressoDTO>();
+
         return new ProgressoCursoDTO
         {
             CursoId = request.CursoId,
+            NomeCurso = curso?.Nome ?? "Curso não encontrado",
             TotalAulas = totalAulas,
             AulasConcluidas = aulasConcluidas,
             PercentualConcluido = percentual,
-            StatusMatricula = matricula.Status.ToString()
+            StatusMatricula = matricula.Status.ToString(),
+            Aulas = aulas
         };
     }
 }

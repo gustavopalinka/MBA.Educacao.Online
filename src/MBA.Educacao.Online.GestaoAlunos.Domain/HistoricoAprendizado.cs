@@ -10,7 +10,16 @@ public class HistoricoAprendizado
     }
 
     public IReadOnlyCollection<AulaConcluida> AulasConcluidas => _aulasConcluidas.AsReadOnly();
-    public ICollection<AulaConcluida> AulasConcluidasEf => _aulasConcluidas;
+    public List<AulaConcluida> AulasConcluidasEf
+    {
+        get => _aulasConcluidas;
+        private set
+        {
+            _aulasConcluidas.Clear();
+            if (value is null) return;
+            _aulasConcluidas.AddRange(value);
+        }
+    }
 
     public void RegistrarAulaConcluida(Guid cursoId, Guid aulaId)
     {
@@ -31,6 +40,11 @@ public class HistoricoAprendizado
     public bool AulaJaConcluida(Guid aulaId)
     {
         return _aulasConcluidas.Any(a => a.AulaId == aulaId);
+    }
+
+    public DateTime? ObterDataConclusao(Guid aulaId)
+    {
+        return _aulasConcluidas.FirstOrDefault(a => a.AulaId == aulaId)?.DataAprendizado;
     }
 }
 

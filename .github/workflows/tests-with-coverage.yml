@@ -1,0 +1,53 @@
+name: Testes com Coverage
+
+on:
+  push:
+    branches: [ main, staging, bkp ]
+  pull_request:
+
+jobs:
+  build-test:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+
+      - name: Restore
+        run: dotnet restore
+
+      - name: Run tests with coverage
+        run: >
+          dotnet test
+          /p:CollectCoverage=true
+          /p:CoverletOutputFormat=cobertura
+          /p:CoverletOutput=TestResults/coverage/
+
+      - name: Install ReportGenerator
+        run: dotnet tool install --global dotnet-reportgenerator-globaltool
+
+      - name: Generate HTML report
+        run: >
+          reportgenerator
+          -reports:tests/**/TestResults/coverage/coverage.cobertura.xml
+          -targetdir:TestResults/coverage/report
+        env:
+          PATH: ${{ env.PATH }};${{ env.USERPROFILE }}\.dotnet\tools
+
+      - name: Upload coverage artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-report
+          path: TestResults/coverage/report
+      - name: Upload to Codecov
+        uses: codecov/codecov-action@v4
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: tests/**/TestResults/coverage/coverage.cobertura.xml
+          flags: unit-tests
+          fail_ci_if_error: true

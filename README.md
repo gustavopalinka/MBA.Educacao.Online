@@ -1,5 +1,7 @@
 # MBA Projeto 03 Plataforma de Educação Online
 
+[![Coverage](https://codecov.io/github/gustavopalinka/MBA.Educacao.Online/branch/main/graph/badge.svg)](https://codecov.io/github/gustavopalinka/MBA.Educacao.Online)
+
 # CREDENCIAIS DE TESTE:
 
 ## Admin:
@@ -15,29 +17,30 @@ Senha: Aluno@123
 ```
 MBA.Educacao.Online/
 ├── src/
-│   ├── Services/
-│   │   ├── 1-Core/
-│   │   │   └── MBA.Educacao.Online.Core
-│   │   ├── 2-BoundedContexts/
-│   │   │   ├── GestaoConteudo/
-│   │   │   │   ├── Domain
-│   │   │   │   ├── Data
-│   │   │   │   └── Application
-│   │   │   ├── GestaoAlunos/
-│   │   │   │   ├── Domain
-│   │   │   │   ├── Data
-│   │   │   │   └── Application
-│   │   │   └── Pagamentos/
-│   │   │       ├── Domain
-│   │   │       ├── Data
-│   │   │       └── Application
-│   │   └── 3-CrossCutting/
-│   │       ├── Security
-│   │       └── Ioc
-│   └── WebApps/
-│       └── MBA.Educacao.Online.API
+│   ├── MBA.Educacao.Online.Core
+│   ├── MBA.Educacao.Online.GestaoConteudo.*
+│   ├── MBA.Educacao.Online.GestaoAlunos.*
+│   ├── MBA.Educacao.Online.Pagamentos.*
+│   ├── MBA.Educacao.Online.Ioc
+│   ├── MBA.Educacao.Online.Security
+│   └── MBA.Educacao.Online.API
 ├── tests/
 │   ├── UnitTests
 │   └── IntegrationTests
-└── docs/
 ```
+
+### API – Controllers
+- `AuthController` – registro/login com Identity + JWT.
+- `CursoController` – comandos/queries para cursos e aulas.
+- `AlunosController` – comandos (`POST matriculas`, `POST progresso`, `POST finalizar`) e consultas (`GET matriculas`, `GET {cursoId}/progresso`, `GET certificados`) para o aluno autenticado.
+- `PagamentoController` – `POST` aluno para iniciar pagamento e `POST {id}/confirmar` para o administrador.
+
+### CQRS + MediatR
+- Todos os comandos de aluno/pagamento utilizam validators FluentValidation e são processados por handlers herdando de `CommandHandler`, que publica notificações de domínio (`DomainNotification`) via `IMediatorHandler`.
+- Consultas (`AlunoQueryHandler`, `CursoQueryHandler`) retornam DTOs definidos em `Application/DTOs`.
+- Eventos de pagamento (`PagamentoConfirmadoEvent`, `PagamentoRejeitadoEvent`) são tratados em `PagamentoEventHandler` para atualizar matrículas.
+
+### Testes
+- `tests/UnitTests` cobre handlers de GestaoAlunos e Pagamentos.
+- `tests/IntegrationTests` exercita o fluxo completo (matrícula, pagamento, progresso, finalização e certificado) com dependências fake em memória.
+- Rodar cobertura: `dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura`.

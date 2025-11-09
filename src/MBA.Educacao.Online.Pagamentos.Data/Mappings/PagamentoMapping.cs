@@ -21,7 +21,6 @@ public class PagamentoMapping : IEntityTypeConfiguration<Pagamento>
         builder.Property(p => p.DataPagamento).IsRequired();
         builder.Property(p => p.DataConfirmacao);
 
-        // Value Object - DadosCartao (Owned Entity)
         builder.OwnsOne(p => p.DadosCartao, dc =>
         {
             dc.Property(d => d.NumeroCartao)
@@ -45,7 +44,6 @@ public class PagamentoMapping : IEntityTypeConfiguration<Pagamento>
               .IsRequired();
         });
 
-        // Value Object - StatusPagamento (Owned Entity)
         builder.OwnsOne(p => p.StatusPagamento, sp =>
         {
             sp.Property(s => s.Status)
@@ -58,7 +56,6 @@ public class PagamentoMapping : IEntityTypeConfiguration<Pagamento>
               .HasMaxLength(500);
         });
 
-        // Índices
         builder.HasIndex(p => p.MatriculaId);
         builder.HasIndex(p => p.AlunoId);
         builder.HasIndex(p => p.DataPagamento);

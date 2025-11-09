@@ -4,9 +4,6 @@ using Microsoft.Extensions.Configuration;
 
 namespace MBA.Educacao.Online.Security.Data;
 
-/// <summary>
-/// DbContext para autenticação e autorização (Identity)
-/// </summary>
 public class SecurityDbContext : IdentityDbContext
 {
     private readonly IConfiguration _configuration;
@@ -23,7 +20,6 @@ public class SecurityDbContext : IdentityDbContext
     {
         base.OnModelCreating(builder);
 
-        // Ajustes para SQLite (não suporta decimal nativamente)
         if (UsingSqlite)
         {
             foreach (var entityType in builder.Model.GetEntityTypes())
@@ -40,7 +36,6 @@ public class SecurityDbContext : IdentityDbContext
             }
         }
 
-        // Personalizar nomes das tabelas do Identity (opcional)
         builder.Entity<Microsoft.AspNetCore.Identity.IdentityUser>(b =>
         {
             b.ToTable("Users");
