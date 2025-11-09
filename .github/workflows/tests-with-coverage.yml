@@ -31,11 +31,14 @@ jobs:
       - name: Install ReportGenerator
         run: dotnet tool install --global dotnet-reportgenerator-globaltool
 
-      - name: Generate HTML report
+      - name: Generate coverage reports
         shell: pwsh
         run: |
           $env:PATH += ";$env:USERPROFILE\.dotnet\tools"
-          reportgenerator -reports:tests/**/TestResults/coverage/coverage.cobertura.xml -targetdir:TestResults/coverage/report
+          reportgenerator `
+            -reports:tests/**/TestResults/coverage/coverage.cobertura.xml `
+            -targetdir:TestResults/coverage/report `
+            -reporttypes:Html;Cobertura
 
       - name: Upload coverage artifact
         uses: actions/upload-artifact@v4
@@ -47,8 +50,6 @@ jobs:
         uses: codecov/codecov-action@v4
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
-          files: |
-            ./tests/UnitTests/TestResults/coverage/coverage.cobertura.xml
-            ./tests/IntegrationTests/TestResults/coverage/coverage.cobertura.xml
+          files: TestResults/coverage/report/Cobertura.xml
           flags: unit-tests
           fail_ci_if_error: true
