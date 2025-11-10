@@ -129,7 +129,7 @@ A estrutura do projeto é organizada da seguinte forma:
    - Acesse a documentação em: http://localhost:5001/swagger
 
 5. **Executar testes com cobertura (opcional):**
-   - `dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura`
+   - `dotnet test tests/UnitTests/MBA.Educacao.Online.UnitTests.csproj --settings coverlet.runsettings --collect:"XPlat Code Coverage" --results-directory TestResults/coverage`
 
 6. **Credenciais de teste:**
    - Administrador: `admin@mba03.com` / `Admin@123`

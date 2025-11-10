@@ -21,12 +21,16 @@ jobs:
       - name: Restore
         run: dotnet restore
 
-      - name: Run tests with coverage
+      - name: Run integration tests
+        run: dotnet test tests/IntegrationTests/MBA.Educacao.Online.IntegrationTests.csproj
+
+      - name: Run unit tests with coverage
         run: >
           dotnet test
-          /p:CollectCoverage=true
-          /p:CoverletOutputFormat=cobertura
-          /p:CoverletOutput=TestResults/coverage/
+          tests/UnitTests/MBA.Educacao.Online.UnitTests.csproj
+          --settings coverlet.runsettings
+          --collect:"XPlat Code Coverage"
+          --results-directory TestResults/coverage
 
       - name: Install ReportGenerator
         run: dotnet tool install --global dotnet-reportgenerator-globaltool
@@ -36,7 +40,7 @@ jobs:
         run: |
           $env:PATH += ";$env:USERPROFILE\.dotnet\tools"
           reportgenerator `
-            "-reports:tests/**/TestResults/coverage/coverage.cobertura.xml" `
+            "-reports:TestResults/coverage/**/coverage.cobertura.xml" `
             "-targetdir:TestResults/coverage/report" `
             "-reporttypes:Html;Cobertura"
 
