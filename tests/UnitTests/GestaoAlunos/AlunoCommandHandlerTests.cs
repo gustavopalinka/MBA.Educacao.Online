@@ -242,5 +242,87 @@ public class AlunoCommandHandlerTests
         unitOfWork.Verify(u => u.Commit(), Times.Never);
         mediatorHandler.Verify(m => m.PublicarNotificacao(It.IsAny<DomainNotification>()), Times.AtLeastOnce);
     }
+
+    [Fact]
+    public async Task Deve_Registrar_Progresso_Quando_Matricula_Ativa()
+    {
+        var alunoId = Guid.NewGuid();
+        var cursoId = Guid.NewGuid();
+        var aulaId = Guid.NewGuid();
+
+        var aluno = new Aluno(alunoId, "Aluno Teste", "aluno@teste.com");
+        aluno.MatricularEmCurso(cursoId);
+        var matricula = aluno.Matriculas.First();
+        matricula.Ativar();
+
+        var alunoRepository = new Mock<IAlunoRepository>();
+        alunoRepository.Setup(r => r.ObterAlunoComMatriculas(alunoId)).ReturnsAsync(aluno);
+        alunoRepository.Setup(r => r.Atualizar(aluno));
+
+        var unitOfWork = new Mock<IUnitOfWork>();
+        unitOfWork.Setup(u => u.Commit()).ReturnsAsync(true);
+        alunoRepository.SetupGet(r => r.UnitOfWork).Returns(unitOfWork.Object);
+
+        var cursoRepository = new Mock<ICursoRepository>();
+
+        var mediatorHandler = new Mock<IMediatorHandler>();
+
+        var handler = new AlunoCommandHandler(alunoRepository.Object, cursoRepository.Object, mediatorHandler.Object);
+        var command = new RegistrarProgressoCommand(alunoId, cursoId, aulaId);
+
+        var resultado = await handler.Handle(command, CancellationToken.None);
+
+        resultado.Should().BeTrue();
+        aluno.HistoricoAprendizado.ObterTotalAulasConcluidasPorCurso(cursoId).Should().Be(1);
+        alunoRepository.Verify(r => r.Atualizar(aluno), Times.Once);
+        unitOfWork.Verify(u => u.Commit(), Times.Once);
+        mediatorHandler.Verify(m => m.PublicarNotificacao(It.IsAny<DomainNotification>()), Times.Never);
+    }
+
+    [Fact]
+    public async Task Deve_Finalizar_Curso_Quando_Todas_Aulas_Completas()
+    {
+        var alunoId = Guid.NewGuid();
+        var cursoId = Guid.NewGuid();
+
+        var conteudo = new ConteudoProgramatico("Conteúdo", 1, DateTime.UtcNow);
+        var curso = new Curso("Curso", "Descrição", 200m, 40, "Dev", "Aprender", "Pré requisitos", conteudo);
+        var aula1 = new Aula("A1", "Aula 1", "Descricao", 1, curso.Id);
+        var aula2 = new Aula("A2", "Aula 2", "Descricao", 2, curso.Id);
+        curso.AdicionarAula(aula1);
+        curso.AdicionarAula(aula2);
+
+        var aluno = new Aluno(alunoId, "Aluno Teste", "aluno@teste.com");
+        aluno.MatricularEmCurso(cursoId);
+        var matricula = aluno.Matriculas.First();
+        matricula.Ativar();
+        aluno.RegistrarProgresso(cursoId, aula1.Id);
+        aluno.RegistrarProgresso(cursoId, aula2.Id);
+
+        var alunoRepository = new Mock<IAlunoRepository>();
+        alunoRepository.Setup(r => r.ObterAlunoComMatriculas(alunoId)).ReturnsAsync(aluno);
+        alunoRepository.Setup(r => r.Atualizar(aluno));
+
+        var unitOfWork = new Mock<IUnitOfWork>();
+        unitOfWork.Setup(u => u.Commit()).ReturnsAsync(true);
+        alunoRepository.SetupGet(r => r.UnitOfWork).Returns(unitOfWork.Object);
+
+        var cursoRepository = new Mock<ICursoRepository>();
+        cursoRepository.Setup(r => r.ObterCursoComAulas(cursoId)).ReturnsAsync(curso);
+
+        var mediatorHandler = new Mock<IMediatorHandler>();
+
+        var handler = new AlunoCommandHandler(alunoRepository.Object, cursoRepository.Object, mediatorHandler.Object);
+        var command = new FinalizarCursoCommand(alunoId, cursoId, matricula.Id);
+
+        var resultado = await handler.Handle(command, CancellationToken.None);
+
+        resultado.Should().BeTrue();
+        matricula.Status.Should().Be(StatusMatricula.Concluida);
+        aluno.Certificados.Should().ContainSingle(c => c.CursoId == cursoId);
+        alunoRepository.Verify(r => r.Atualizar(aluno), Times.Once);
+        unitOfWork.Verify(u => u.Commit(), Times.Once);
+        mediatorHandler.Verify(m => m.PublicarNotificacao(It.IsAny<DomainNotification>()), Times.Never);
+    }
 }
 
