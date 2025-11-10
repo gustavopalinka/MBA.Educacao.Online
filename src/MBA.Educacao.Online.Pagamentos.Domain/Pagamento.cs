@@ -24,8 +24,8 @@ public class Pagamento : Entity, IAggregateRoot
     public decimal Valor { get; private set; }
     public DateTime DataPagamento { get; private set; }
     public DateTime? DataConfirmacao { get; private set; }
-    public DadosCartao DadosCartao { get; private set; }
-    public StatusPagamento StatusPagamento { get; private set; }
+    public DadosCartao DadosCartao { get; private set; } = null!;
+    public StatusPagamento StatusPagamento { get; private set; } = null!;
 
     public void Confirmar()
     {

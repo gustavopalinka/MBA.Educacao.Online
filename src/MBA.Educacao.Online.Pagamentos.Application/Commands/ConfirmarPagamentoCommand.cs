@@ -1,11 +1,9 @@
+using FluentValidation.Results;
 using MBA.Educacao.Online.Core.Messages;
+using MBA.Educacao.Online.Pagamentos.Application.Commands.Validators;
 
 namespace MBA.Educacao.Online.Pagamentos.Application.Commands;
 
-/// <summary>
-/// Command para confirmar um pagamento
-/// (simulação de callback de gateway de pagamento)
-/// </summary>
 public class ConfirmarPagamentoCommand : Command
 {
     public ConfirmarPagamentoCommand(Guid pagamentoId)
@@ -17,7 +15,8 @@ public class ConfirmarPagamentoCommand : Command
 
     public override bool EhValido()
     {
-        return PagamentoId != Guid.Empty;
+        ValidationResult = new ConfirmarPagamentoCommandValidator().Validate(this);
+        return ValidationResult.IsValid;
     }
 }
 

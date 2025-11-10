@@ -40,7 +40,7 @@ public class CursoQueryHandler :
     {
         var curso = await _cursoRepository.ObterCursoComAulas(request.CursoId);
 
-        if (curso == null)
+        if (curso is null)
             return null;
 
         return new CursoDTO

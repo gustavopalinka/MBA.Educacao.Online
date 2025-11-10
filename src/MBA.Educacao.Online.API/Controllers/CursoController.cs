@@ -34,7 +34,7 @@ public class CursoController : ControllerBase
         var query = new ObterCursoPorIdQuery(id);
         var curso = await _mediator.Send(query);
 
-        if (curso == null)
+        if (curso is null)
             return NotFound("Curso não encontrado");
 
         return Ok(curso);

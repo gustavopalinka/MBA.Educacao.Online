@@ -1,6 +1,7 @@
 using MBA.Educacao.Online.Core.Data;
 using MBA.Educacao.Online.GestaoAlunos.Domain;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace MBA.Educacao.Online.GestaoAlunos.Data.Repositories;
 
@@ -33,7 +34,7 @@ public class AlunoRepository : IAlunoRepository
     {
         return await _context.Alunos
             .Include(a => a.Matriculas)
-            .AsNoTracking()
+            .Include(a => a.HistoricoAprendizado.AulasConcluidasEf)
             .FirstOrDefaultAsync(a => a.Id == id);
     }
 
@@ -41,7 +42,7 @@ public class AlunoRepository : IAlunoRepository
     {
         return await _context.Alunos
             .Include(a => a.Certificados)
-            .AsNoTracking()
+            .Include(a => a.HistoricoAprendizado.AulasConcluidasEf)
             .FirstOrDefaultAsync(a => a.Id == id);
     }
 
@@ -59,6 +60,12 @@ public class AlunoRepository : IAlunoRepository
 
     public void Atualizar(Aluno aluno)
     {
+        var local = _context.Alunos.Local.FirstOrDefault(a => a.Id == aluno.Id);
+        if (local is not null)
+        {
+            _context.Entry(local).State = EntityState.Detached;
+        }
+
         _context.Alunos.Update(aluno);
     }
 

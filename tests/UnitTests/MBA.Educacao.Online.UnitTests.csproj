@@ -1,0 +1,39 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="coverlet.collector" Version="6.0.4">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.14.1" />
+    <PackageReference Include="FluentAssertions" Version="6.12.0" />
+    <PackageReference Include="Moq" Version="4.20.69" />
+    <PackageReference Include="xunit" Version="2.9.2" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.8.2">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="8.0.20" />
+    <PackageReference Include="Azure.Core" Version="1.38.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\MBA.Educacao.Online.Core\MBA.Educacao.Online.Core.csproj" />
+    <ProjectReference Include="..\..\src\MBA.Educacao.Online.GestaoAlunos.Application\MBA.Educacao.Online.GestaoAlunos.Application.csproj" />
+    <ProjectReference Include="..\..\src\MBA.Educacao.Online.GestaoAlunos.Domain\MBA.Educacao.Online.GestaoAlunos.Domain.csproj" />
+    <ProjectReference Include="..\..\src\MBA.Educacao.Online.GestaoConteudo.Application\MBA.Educacao.Online.GestaoConteudo.Application.csproj" />
+    <ProjectReference Include="..\..\src\MBA.Educacao.Online.GestaoConteudo.Domain\MBA.Educacao.Online.GestaoConteudo.Domain.csproj" />
+    <ProjectReference Include="..\..\src\MBA.Educacao.Online.Pagamentos.Application\MBA.Educacao.Online.Pagamentos.Application.csproj" />
+    <ProjectReference Include="..\..\src\MBA.Educacao.Online.Pagamentos.Domain\MBA.Educacao.Online.Pagamentos.Domain.csproj" />
+  </ItemGroup>
+
+</Project>
+

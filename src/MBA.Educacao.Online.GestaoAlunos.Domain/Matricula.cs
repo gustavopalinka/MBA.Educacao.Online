@@ -23,7 +23,7 @@ public class Matricula : Entity
     public DateTime? DataConclusao { get; private set; }
     public StatusMatricula Status { get; private set; }
     public bool Ativo { get; private set; }
-    public virtual Aluno Aluno { get; private set; }
+    public virtual Aluno Aluno { get; private set; } = null!;
 
     public void AlterarStatus(bool ativo) => Ativo = ativo;
 

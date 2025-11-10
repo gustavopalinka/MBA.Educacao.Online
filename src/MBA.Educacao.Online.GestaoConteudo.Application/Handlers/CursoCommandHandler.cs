@@ -52,7 +52,7 @@ public class CursoCommandHandler :
 
         var curso = await _cursoRepository.ObterPorId(request.CursoId);
         
-        if (curso == null)
+        if (curso is null)
         {
             return false;
         }

@@ -4,7 +4,16 @@ namespace MBA.Educacao.Online.GestaoConteudo.Domain;
 
 public class Curso : Entity, IAggregateRoot
 {
-    protected Curso() { }
+    protected Curso()
+    {
+        Nome = string.Empty;
+        Descricao = string.Empty;
+        PublicoAlvo = string.Empty;
+        Objetivo = string.Empty;
+        Requisitos = string.Empty;
+        ConteudoProgramatico = null!;
+        Aulas = new List<Aula>();
+    }
 
     public Curso(string nome, string descricao, decimal valor, int cargaHoraria, 
                  string publicoAlvo, string objetivo, string requisitos, 
@@ -25,17 +34,17 @@ public class Curso : Entity, IAggregateRoot
         Aulas = new List<Aula>();
     }
 
-    public string Nome { get; private set; }
-    public string Descricao { get; private set; }
+    public string Nome { get; private set; } = string.Empty;
+    public string Descricao { get; private set; } = string.Empty;
     public decimal Valor { get; private set; }
     public int CargaHoraria { get; private set; }
-    public string PublicoAlvo { get; private set; }
-    public string Objetivo { get; private set; }
-    public string Requisitos { get; private set; }
+    public string PublicoAlvo { get; private set; } = string.Empty;
+    public string Objetivo { get; private set; } = string.Empty;
+    public string Requisitos { get; private set; } = string.Empty;
     public DateTime DataCadastro { get; private set; }
-    public ConteudoProgramatico ConteudoProgramatico { get; private set; }
+    public ConteudoProgramatico ConteudoProgramatico { get; private set; } = null!;
     public bool Ativo { get; private set; }
-    public ICollection<Aula> Aulas { get; private set; }
+    public ICollection<Aula> Aulas { get; private set; } = new List<Aula>();
 
     public void AlterarEstado(bool ativo) => Ativo = ativo;
 
