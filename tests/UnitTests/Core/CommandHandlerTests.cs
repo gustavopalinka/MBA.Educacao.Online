@@ -9,7 +9,8 @@ namespace MBA.Educacao.Online.UnitTests.Core;
 
 public class CommandHandlerTests
 {
-    [Fact]
+    [Trait("Categoria", "Core - CommandHandler")]
+    [Fact(DisplayName = "NotificarErros deve publicar notificações")]
     public async Task NotificarErros_Deve_Publicar_Notificacoes()
     {
         var mediator = new Mock<IMediatorHandler>();
@@ -29,7 +30,8 @@ public class CommandHandlerTests
         mediator.Verify(m => m.PublicarNotificacao(It.IsAny<DomainNotification>()), Times.Exactly(2));
     }
 
-    [Fact]
+    [Trait("Categoria", "Core - CommandHandler")]
+    [Fact(DisplayName = "NotificarErro deve publicar notificação única")]
     public async Task NotificarErro_Deve_Publicar_Notificacao()
     {
         var mediator = new Mock<IMediatorHandler>();

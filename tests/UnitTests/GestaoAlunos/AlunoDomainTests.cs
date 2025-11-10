@@ -9,7 +9,8 @@ namespace MBA.Educacao.Online.UnitTests.GestaoAlunos;
 
 public class AlunoDomainTests
 {
-    [Fact]
+    [Trait("Categoria", "GestaoAlunos - Dominio")]
+    [Fact(DisplayName = "Deve matricular aluno em curso")]
     public void Deve_Matricular_Aluno_Em_Curso()
     {
         var aluno = new Aluno(Guid.NewGuid(), "Aluno Teste", "aluno@teste.com");
@@ -23,7 +24,8 @@ public class AlunoDomainTests
         matricula.Ativo.Should().BeTrue();
     }
 
-    [Fact]
+    [Trait("Categoria", "GestaoAlunos - Dominio")]
+    [Fact(DisplayName = "Deve concluir curso gerando certificado")]
     public void Deve_Concluir_Curso_Gerando_Certificado()
     {
         var aluno = new Aluno(Guid.NewGuid(), "Aluno Teste", "aluno@teste.com");
@@ -39,7 +41,8 @@ public class AlunoDomainTests
         aluno.Certificados.Should().ContainSingle(c => c.CursoId == cursoId);
     }
 
-    [Fact]
+    [Trait("Categoria", "GestaoAlunos - Dominio")]
+    [Fact(DisplayName = "Deve registrar progresso de aula")]
     public void Deve_Registrar_Progresso()
     {
         var aluno = new Aluno(Guid.NewGuid(), "Aluno Teste", "aluno@teste.com");
@@ -52,7 +55,8 @@ public class AlunoDomainTests
         aluno.HistoricoAprendizado.AulaJaConcluida(aulaId).Should().BeTrue();
     }
 
-    [Fact]
+    [Trait("Categoria", "GestaoAlunos - Dominio")]
+    [Fact(DisplayName = "Deve lançar exceção quando nome inválido")]
     public void Deve_Lancar_Excecao_Quando_Nome_Invalido()
     {
         Action act = () => new Aluno(Guid.NewGuid(), string.Empty, "aluno@teste.com");

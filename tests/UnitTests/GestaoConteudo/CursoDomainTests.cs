@@ -8,7 +8,8 @@ namespace MBA.Educacao.Online.UnitTests.GestaoConteudo;
 
 public class CursoDomainTests
 {
-    [Fact]
+    [Trait("Categoria", "GestaoConteudo - Dominio")]
+    [Fact(DisplayName = "Deve criar curso com aulas")]
     public void Deve_Criar_Curso_Com_Aulas()
     {
         var conteudo = new ConteudoProgramatico("Conteúdo", 10, DateTime.UtcNow);
@@ -22,7 +23,8 @@ public class CursoDomainTests
         curso.Ativo.Should().BeTrue();
     }
 
-    [Fact]
+    [Trait("Categoria", "GestaoConteudo - Dominio")]
+    [Fact(DisplayName = "Deve remover aula do curso")]
     public void Deve_Remover_Aula()
     {
         var conteudo = new ConteudoProgramatico("Conteúdo", 10, DateTime.UtcNow);
@@ -35,7 +37,8 @@ public class CursoDomainTests
         curso.Aulas.Should().BeEmpty();
     }
 
-    [Fact]
+    [Trait("Categoria", "GestaoConteudo - Dominio")]
+    [Fact(DisplayName = "Deve lançar exceção quando valor negativo")]
     public void Deve_Lancar_Excecao_Quando_Valor_Negativo()
     {
         var conteudo = new ConteudoProgramatico("Conteúdo", 10, DateTime.UtcNow);

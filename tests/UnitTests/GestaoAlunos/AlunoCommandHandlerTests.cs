@@ -15,7 +15,8 @@ namespace MBA.Educacao.Online.UnitTests.GestaoAlunos;
 
 public class AlunoCommandHandlerTests
 {
-    [Fact]
+    [Trait("Categoria", "GestaoAlunos - CommandHandler")]
+    [Fact(DisplayName = "Deve matricular aluno quando curso ativo")]
     public async Task Deve_Matricular_Aluno_Quando_Curso_Ativo()
     {
         var alunoId = Guid.NewGuid();
@@ -49,7 +50,8 @@ public class AlunoCommandHandlerTests
         mediatorHandler.Verify(m => m.PublicarNotificacao(It.IsAny<DomainNotification>()), Times.Never);
     }
 
-    [Fact]
+    [Trait("Categoria", "GestaoAlunos - CommandHandler")]
+    [Fact(DisplayName = "Não deve matricular quando curso inexistente")]
     public async Task Nao_Deve_Matricular_Quando_Curso_Inexistente()
     {
         var alunoId = Guid.NewGuid();
@@ -79,7 +81,8 @@ public class AlunoCommandHandlerTests
         mediatorHandler.Verify(m => m.PublicarNotificacao(It.IsAny<DomainNotification>()), Times.AtLeastOnce);
     }
 
-    [Fact]
+    [Trait("Categoria", "GestaoAlunos - CommandHandler")]
+    [Fact(DisplayName = "Não deve matricular quando curso inativo")]
     public async Task Nao_Deve_Matricular_Quando_Curso_Inativo()
     {
         var alunoId = Guid.NewGuid();
@@ -113,7 +116,8 @@ public class AlunoCommandHandlerTests
         mediatorHandler.Verify(m => m.PublicarNotificacao(It.IsAny<DomainNotification>()), Times.AtLeastOnce);
     }
 
-    [Fact]
+    [Trait("Categoria", "GestaoAlunos - CommandHandler")]
+    [Fact(DisplayName = "Não deve matricular quando já matriculado")]
     public async Task Nao_Deve_Matricular_Quando_Ja_Matriculado()
     {
         var alunoId = Guid.NewGuid();
@@ -150,7 +154,8 @@ public class AlunoCommandHandlerTests
         mediatorHandler.Verify(m => m.PublicarNotificacao(It.IsAny<DomainNotification>()), Times.AtLeastOnce);
     }
 
-    [Fact]
+    [Trait("Categoria", "GestaoAlunos - CommandHandler")]
+    [Fact(DisplayName = "Não deve matricular com comando inválido")]
     public async Task Nao_Deve_Matricular_Quando_Comando_Invalido()
     {
         var alunoRepository = new Mock<IAlunoRepository>();
@@ -168,7 +173,8 @@ public class AlunoCommandHandlerTests
         mediatorHandler.Verify(m => m.PublicarNotificacao(It.IsAny<DomainNotification>()), Times.AtLeastOnce);
     }
 
-    [Fact]
+    [Trait("Categoria", "GestaoAlunos - CommandHandler")]
+    [Fact(DisplayName = "Não deve registrar progresso com matrícula inativa")]
     public async Task Nao_Deve_Registrar_Progresso_Quando_Matricula_Inativa()
     {
         var alunoId = Guid.NewGuid();
@@ -200,7 +206,8 @@ public class AlunoCommandHandlerTests
         mediatorHandler.Verify(m => m.PublicarNotificacao(It.IsAny<DomainNotification>()), Times.AtLeastOnce);
     }
 
-    [Fact]
+    [Trait("Categoria", "GestaoAlunos - CommandHandler")]
+    [Fact(DisplayName = "Não deve finalizar curso com aulas pendentes")]
     public async Task Nao_Deve_Finalizar_Curso_Com_Aulas_Pendentes()
     {
         var alunoId = Guid.NewGuid();
@@ -243,7 +250,8 @@ public class AlunoCommandHandlerTests
         mediatorHandler.Verify(m => m.PublicarNotificacao(It.IsAny<DomainNotification>()), Times.AtLeastOnce);
     }
 
-    [Fact]
+    [Trait("Categoria", "GestaoAlunos - CommandHandler")]
+    [Fact(DisplayName = "Deve registrar progresso quando matrícula ativa")]
     public async Task Deve_Registrar_Progresso_Quando_Matricula_Ativa()
     {
         var alunoId = Guid.NewGuid();
@@ -279,7 +287,8 @@ public class AlunoCommandHandlerTests
         mediatorHandler.Verify(m => m.PublicarNotificacao(It.IsAny<DomainNotification>()), Times.Never);
     }
 
-    [Fact]
+    [Trait("Categoria", "GestaoAlunos - CommandHandler")]
+    [Fact(DisplayName = "Deve finalizar curso quando todas as aulas completas")]
     public async Task Deve_Finalizar_Curso_Quando_Todas_Aulas_Completas()
     {
         var alunoId = Guid.NewGuid();

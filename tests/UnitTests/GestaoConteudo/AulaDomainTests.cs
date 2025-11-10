@@ -7,7 +7,8 @@ namespace MBA.Educacao.Online.UnitTests.GestaoConteudo;
 
 public class AulaDomainTests
 {
-    [Fact]
+    [Trait("Categoria", "GestaoConteudo - Dominio")]
+    [Fact(DisplayName = "Atualizar informações deve modificar dados")]
     public void AtualizarInformacoes_Deve_Modificar_Dados_Da_Aula()
     {
         var aula = new Aula("A1", "Título", "Descrição", 1, Guid.NewGuid());
@@ -20,7 +21,8 @@ public class AulaDomainTests
         aula.Ordem.Should().Be(2);
     }
 
-    [Fact]
+    [Trait("Categoria", "GestaoConteudo - Dominio")]
+    [Fact(DisplayName = "Alterar estado deve mudar flag Ativo")]
     public void AlterarEstado_Deve_Modificar_Status()
     {
         var aula = new Aula("A1", "Título", "Descrição", 1, Guid.NewGuid());

@@ -11,7 +11,8 @@ namespace MBA.Educacao.Online.UnitTests.Core;
 
 public class MediatorHandlerTests
 {
-    [Fact]
+    [Trait("Categoria", "Core - Mediator")]
+    [Fact(DisplayName = "EnviarComando deve chamar mediator.Send")]
     public async Task EnviarComando_Deve_Chamar_Mediator_Send()
     {
         var mediator = new Mock<IMediator>();
@@ -28,7 +29,8 @@ public class MediatorHandlerTests
         mediator.Verify(m => m.Send(command, It.IsAny<CancellationToken>()), Times.Once);
     }
 
-    [Fact]
+    [Trait("Categoria", "Core - Mediator")]
+    [Fact(DisplayName = "PublicarEvento deve chamar mediator.Publish")]
     public async Task PublicarEvento_Deve_Chamar_Mediator_Publish()
     {
         var mediator = new Mock<IMediator>();
@@ -44,7 +46,8 @@ public class MediatorHandlerTests
         mediator.Verify(m => m.Publish(evento, It.IsAny<CancellationToken>()), Times.Once);
     }
 
-    [Fact]
+    [Trait("Categoria", "Core - Mediator")]
+    [Fact(DisplayName = "PublicarNotificacao deve chamar mediator.Publish")]
     public async Task PublicarNotificacao_Deve_Chamar_Mediator_Publish()
     {
         var mediator = new Mock<IMediator>();

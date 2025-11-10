@@ -7,7 +7,8 @@ namespace MBA.Educacao.Online.UnitTests.GestaoConteudo;
 
 public class ConteudoProgramaticoTests
 {
-    [Fact]
+    [Trait("Categoria", "GestaoConteudo - Dominio")]
+    [Fact(DisplayName = "Nova revisão deve incrementar versão")]
     public void NovaRevisao_Deve_Gerar_Conteudo_Com_Revisao_Incrementada()
     {
         var conteudo = new ConteudoProgramatico("Conteúdo inicial", 1, DateTime.UtcNow);
@@ -18,7 +19,8 @@ public class ConteudoProgramaticoTests
         novaRevisao.ConteudoDescricao.Should().Be("Conteúdo revisado");
     }
 
-    [Fact]
+    [Trait("Categoria", "GestaoConteudo - Dominio")]
+    [Fact(DisplayName = "Equals deve considerar descrição, revisão e data")]
     public void Equals_Deve_Considerar_Descricao_Revisao_E_Data()
     {
         var data = DateTime.UtcNow;

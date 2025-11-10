@@ -13,7 +13,8 @@ namespace MBA.Educacao.Online.UnitTests.GestaoConteudo;
 
 public class CursoQueryHandlerTests
 {
-    [Fact]
+    [Trait("Categoria", "GestaoConteudo - QueryHandler")]
+    [Fact(DisplayName = "Deve retornar cursos ativos")]
     public async Task Deve_Retornar_Cursos_Ativos()
     {
         var conteudo = new ConteudoProgramatico("Conteúdo", 1, DateTime.UtcNow);
@@ -32,7 +33,8 @@ public class CursoQueryHandlerTests
         resultado.Select(c => c.Nome).Should().Contain(new[] { "Curso 1", "Curso 2" });
     }
 
-    [Fact]
+    [Trait("Categoria", "GestaoConteudo - QueryHandler")]
+    [Fact(DisplayName = "Deve retornar curso com aulas")]
     public async Task Deve_Retornar_Curso_Com_Aulas()
     {
         var conteudo = new ConteudoProgramatico("Conteúdo", 1, DateTime.UtcNow);
@@ -54,7 +56,8 @@ public class CursoQueryHandlerTests
         resultado.Aulas.Select(a => a.Codigo).Should().Contain(new[] { "A1", "A2" });
     }
 
-    [Fact]
+    [Trait("Categoria", "GestaoConteudo - QueryHandler")]
+    [Fact(DisplayName = "Deve retornar null quando curso não encontrado")]
     public async Task Deve_Retornar_Null_Quando_Curso_Nao_Encontrado()
     {
         var cursoRepository = new Mock<ICursoRepository>();

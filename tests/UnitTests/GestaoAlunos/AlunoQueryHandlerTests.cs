@@ -15,7 +15,8 @@ namespace MBA.Educacao.Online.UnitTests.GestaoAlunos;
 
 public class AlunoQueryHandlerTests
 {
-    [Fact]
+    [Trait("Categoria", "GestaoAlunos - QueryHandler")]
+    [Fact(DisplayName = "Deve listar matrículas com nome do curso")]
     public async Task Deve_Listar_Matriculas_Com_Nome_Do_Curso()
     {
         var aluno = new Aluno(Guid.NewGuid(), "Aluno Teste", "aluno@teste.com");
@@ -39,7 +40,8 @@ public class AlunoQueryHandlerTests
         resultado.First().NomeCurso.Should().Be("Curso Teste");
     }
 
-    [Fact]
+    [Trait("Categoria", "GestaoAlunos - QueryHandler")]
+    [Fact(DisplayName = "Deve listar certificados com nome do curso")]
     public async Task Deve_Listar_Certificados_Com_Nome_Do_Curso()
     {
         var aluno = new Aluno(Guid.NewGuid(), "Aluno Teste", "aluno@teste.com");
@@ -66,7 +68,8 @@ public class AlunoQueryHandlerTests
         resultado.First().NomeCurso.Should().Be("Curso Teste");
     }
 
-    [Fact]
+    [Trait("Categoria", "GestaoAlunos - QueryHandler")]
+    [Fact(DisplayName = "Deve retornar progresso completo")]
     public async Task Deve_Retornar_Progresso_Com_Aulas()
     {
         var aluno = new Aluno(Guid.NewGuid(), "Aluno Teste", "aluno@teste.com");

@@ -6,7 +6,8 @@ namespace MBA.Educacao.Online.UnitTests.Core;
 
 public class StringExtensionsTests
 {
-    [Fact]
+    [Trait("Categoria", "Core - Utilitarios")]
+    [Fact(DisplayName = "ToGuid deve retornar Guid válido")]
     public void ToGuid_Deve_Retornar_Guid_Valido()
     {
         var guid = Guid.NewGuid();
@@ -16,7 +17,8 @@ public class StringExtensionsTests
         resultado.Should().Be(guid);
     }
 
-    [Fact]
+    [Trait("Categoria", "Core - Utilitarios")]
+    [Fact(DisplayName = "ToGuid deve retornar Guid.Empty quando inválido")]
     public void ToGuid_Deve_Retornar_Guid_Empty_Quando_Invalido()
     {
         var resultado = "valor-invalido".ToGuid();

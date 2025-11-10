@@ -7,7 +7,8 @@ namespace MBA.Educacao.Online.UnitTests.GestaoAlunos;
 
 public class AlunoCommandValidatorsTests
 {
-    [Fact]
+    [Trait("Categoria", "GestaoAlunos - Validators")]
+    [Fact(DisplayName = "MatricularAlunoCommand inválido quando campos vazios")]
     public void MatricularAlunoCommand_Deve_Falhar_Quando_Dados_Invalidos()
     {
         var command = new MatricularAlunoCommand(Guid.Empty, Guid.Empty);
@@ -19,7 +20,8 @@ public class AlunoCommandValidatorsTests
         command.ValidationResult.Errors.Should().Contain(e => e.ErrorMessage.Contains("curso"));
     }
 
-    [Fact]
+    [Trait("Categoria", "GestaoAlunos - Validators")]
+    [Fact(DisplayName = "RegistrarProgressoCommand inválido quando campos vazios")]
     public void RegistrarProgressoCommand_Deve_Falhar_Quando_Dados_Invalidos()
     {
         var command = new RegistrarProgressoCommand(Guid.Empty, Guid.Empty, Guid.Empty);
@@ -32,7 +34,8 @@ public class AlunoCommandValidatorsTests
         command.ValidationResult.Errors.Should().Contain(e => e.ErrorMessage.Contains("aula"));
     }
 
-    [Fact]
+    [Trait("Categoria", "GestaoAlunos - Validators")]
+    [Fact(DisplayName = "FinalizarCursoCommand inválido quando campos vazios")]
     public void FinalizarCursoCommand_Deve_Falhar_Quando_Dados_Invalidos()
     {
         var command = new FinalizarCursoCommand(Guid.Empty, Guid.Empty, Guid.Empty);

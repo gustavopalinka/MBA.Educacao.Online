@@ -8,7 +8,8 @@ namespace MBA.Educacao.Online.UnitTests.Core;
 
 public class DomainNotificationHandlerTests
 {
-    [Fact]
+    [Trait("Categoria", "Core - Mediator")]
+    [Fact(DisplayName = "Deve registrar notificações")]
     public async Task Deve_Registrar_Notificacoes()
     {
         var handler = new DomainNotificationHandler();
@@ -19,7 +20,8 @@ public class DomainNotificationHandlerTests
         handler.GetNotifications().Should().ContainSingle(n => n.Key == "Erro" && n.Value == "Mensagem de erro");
     }
 
-    [Fact]
+    [Trait("Categoria", "Core - Mediator")]
+    [Fact(DisplayName = "Dispose deve limpar notificações")]
     public async Task Dispose_Deve_Limpar_Notificacoes()
     {
         var handler = new DomainNotificationHandler();

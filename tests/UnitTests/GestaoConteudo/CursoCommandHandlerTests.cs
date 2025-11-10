@@ -13,7 +13,8 @@ namespace MBA.Educacao.Online.UnitTests.GestaoConteudo;
 
 public class CursoCommandHandlerTests
 {
-    [Fact]
+    [Trait("Categoria", "GestaoConteudo - CommandHandler")]
+    [Fact(DisplayName = "Deve criar curso com comando válido")]
     public async Task Deve_Criar_Curso_Quando_Comando_Valido()
     {
         var cursoRepository = new Mock<ICursoRepository>();
@@ -33,7 +34,8 @@ public class CursoCommandHandlerTests
         unitOfWork.Verify(u => u.Commit(), Times.Once);
     }
 
-    [Fact]
+    [Trait("Categoria", "GestaoConteudo - CommandHandler")]
+    [Fact(DisplayName = "Não deve criar curso com comando inválido")]
     public async Task Nao_Deve_Criar_Curso_Quando_Comando_Invalido()
     {
         var cursoRepository = new Mock<ICursoRepository>();
@@ -46,7 +48,8 @@ public class CursoCommandHandlerTests
         cursoRepository.Verify(r => r.Adicionar(It.IsAny<Curso>()), Times.Never);
     }
 
-    [Fact]
+    [Trait("Categoria", "GestaoConteudo - CommandHandler")]
+    [Fact(DisplayName = "Deve adicionar aula quando curso existe")]
     public async Task Deve_Adicionar_Aula_Quando_Curso_Existe()
     {
         var curso = new Curso("Curso Teste", "Descrição", 100m, 10, "Dev", "Aprender", "Pré", new ConteudoProgramatico("Conteúdo", 1, DateTime.UtcNow));
@@ -69,7 +72,8 @@ public class CursoCommandHandlerTests
         unitOfWork.Verify(u => u.Commit(), Times.Once);
     }
 
-    [Fact]
+    [Trait("Categoria", "GestaoConteudo - CommandHandler")]
+    [Fact(DisplayName = "Não deve adicionar aula quando curso não existe")]
     public async Task Nao_Deve_Adicionar_Aula_Quando_Curso_Nao_Existe()
     {
         var cursoRepository = new Mock<ICursoRepository>();

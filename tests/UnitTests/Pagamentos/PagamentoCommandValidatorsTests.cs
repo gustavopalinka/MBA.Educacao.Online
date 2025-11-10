@@ -7,7 +7,8 @@ namespace MBA.Educacao.Online.UnitTests.Pagamentos;
 
 public class PagamentoCommandValidatorsTests
 {
-    [Fact]
+    [Trait("Categoria", "Pagamentos - Validators")]
+    [Fact(DisplayName = "RealizarPagamentoCommand inválido quando dados inconsistentes")]
     public void RealizarPagamentoCommand_Deve_Falhar_Quando_Dados_Invalidos()
     {
         var command = new RealizarPagamentoCommand(
@@ -25,7 +26,8 @@ public class PagamentoCommandValidatorsTests
         command.ValidationResult.Errors.Should().NotBeEmpty();
     }
 
-    [Fact]
+    [Trait("Categoria", "Pagamentos - Validators")]
+    [Fact(DisplayName = "ConfirmarPagamentoCommand inválido quando Id vazio")]
     public void ConfirmarPagamentoCommand_Deve_Falhar_Quando_Dados_Invalidos()
     {
         var command = new ConfirmarPagamentoCommand(Guid.Empty);

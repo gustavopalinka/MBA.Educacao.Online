@@ -7,7 +7,8 @@ namespace MBA.Educacao.Online.UnitTests.GestaoConteudo;
 
 public class CursoCommandValidatorsTests
 {
-    [Fact]
+    [Trait("Categoria", "GestaoConteudo - Validators")]
+    [Fact(DisplayName = "CriarCursoCommand inválido quando dados inconsistentes")]
     public void CriarCursoCommand_Deve_Falhar_Quando_Dados_Invalidos()
     {
         var command = new CriarCursoCommand(
@@ -26,7 +27,8 @@ public class CursoCommandValidatorsTests
         command.ValidationResult.Errors.Should().NotBeEmpty();
     }
 
-    [Fact]
+    [Trait("Categoria", "GestaoConteudo - Validators")]
+    [Fact(DisplayName = "AdicionarAulaCommand inválido quando dados inconsistentes")]
     public void AdicionarAulaCommand_Deve_Falhar_Quando_Dados_Invalidos()
     {
         var command = new AdicionarAulaCommand(

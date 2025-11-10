@@ -7,7 +7,8 @@ namespace MBA.Educacao.Online.UnitTests.GestaoAlunos;
 
 public class HistoricoAprendizadoTests
 {
-    [Fact]
+    [Trait("Categoria", "GestaoAlunos - Dominio")]
+    [Fact(DisplayName = "Deve registrar aulas sem duplicar")]
     public void Deve_Registrar_Aulas_Sem_Duplicar()
     {
         var historico = new HistoricoAprendizado();
@@ -20,7 +21,8 @@ public class HistoricoAprendizadoTests
         historico.ObterTotalAulasConcluidas().Should().Be(1);
     }
 
-    [Fact]
+    [Trait("Categoria", "GestaoAlunos - Dominio")]
+    [Fact(DisplayName = "Deve obter data de conclusão")]
     public void Deve_Obter_Data_De_Conclusao()
     {
         var historico = new HistoricoAprendizado();

@@ -6,7 +6,8 @@ namespace MBA.Educacao.Online.UnitTests.Core;
 
 public class ResponseResultTests
 {
-    [Fact]
+    [Trait("Categoria", "Core - Utilitarios")]
+    [Fact(DisplayName = "ResponseResult é válido quando não possui erros")]
     public void IsValid_Deve_Ser_Verdadeiro_Quando_Sem_Erros()
     {
         var result = new ResponseResult();
@@ -14,7 +15,8 @@ public class ResponseResultTests
         result.IsValid.Should().BeTrue();
     }
 
-    [Fact]
+    [Trait("Categoria", "Core - Utilitarios")]
+    [Fact(DisplayName = "AddError deve registrar erro")]
     public void AddError_Deve_Registrar_Erro()
     {
         var result = new ResponseResult();

@@ -8,7 +8,8 @@ namespace MBA.Educacao.Online.UnitTests.Pagamentos;
 
 public class PagamentoDomainTests
 {
-    [Fact]
+    [Trait("Categoria", "Pagamentos - Dominio")]
+    [Fact(DisplayName = "Deve confirmar pagamento e publicar evento")]
     public void Deve_Confirmar_Pagamento()
     {
         var pagamento = CriarPagamento("5555444433332222");
@@ -20,7 +21,20 @@ public class PagamentoDomainTests
             .Which.Should().BeOfType<PagamentoConfirmadoEvent>();
     }
 
-    [Fact]
+    [Trait("Categoria", "Pagamentos - Dominio")]
+    [Fact(DisplayName = "Deve cancelar pagamento")]
+    public void Deve_Cancelar_Pagamento()
+    {
+        var pagamento = CriarPagamento("5555444433332222");
+
+        pagamento.Cancelar();
+
+        pagamento.StatusPagamento.Status.Should().Be(StatusPagamentoEnum.Cancelado);
+        pagamento.Notificacoes.Should().BeNullOrEmpty();
+    }
+
+    [Trait("Categoria", "Pagamentos - Dominio")]
+    [Fact(DisplayName = "Deve rejeitar pagamento e publicar evento")]
     public void Deve_Rejeitar_Pagamento()
     {
         var pagamento = CriarPagamento("5555444433332222");
@@ -32,7 +46,8 @@ public class PagamentoDomainTests
         pagamento.StatusPagamento.Status.Should().Be(StatusPagamentoEnum.Rejeitado);
     }
 
-    [Fact]
+    [Trait("Categoria", "Pagamentos - Dominio")]
+    [Fact(DisplayName = "Deve lançar exceção quando valor negativo")]
     public void Deve_Lancar_Excecao_Quando_Valor_Negativo()
     {
         Action act = () => new Pagamento(Guid.NewGuid(), Guid.NewGuid(), -10m,
@@ -40,6 +55,20 @@ public class PagamentoDomainTests
 
         act.Should().Throw<DomainException>()
             .WithMessage("O valor do pagamento não pode ser negativo");
+    }
+
+    [Trait("Categoria", "Pagamentos - Dominio")]
+    [Fact(DisplayName = "Deve limpar eventos após processamento")]
+    public void Deve_Limpar_Eventos_Apos_Processamento()
+    {
+        var pagamento = CriarPagamento("5555444433332222");
+
+        pagamento.Confirmar();
+        pagamento.Notificacoes.Should().NotBeNull();
+
+        pagamento.LimparEventos();
+
+        pagamento.Notificacoes.Should().BeNullOrEmpty();
     }
 
     private static Pagamento CriarPagamento(string numeroCartao)

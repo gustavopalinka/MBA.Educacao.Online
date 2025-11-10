@@ -16,7 +16,8 @@ namespace MBA.Educacao.Online.UnitTests.Pagamentos;
 
 public class PagamentoCommandHandlerTests
 {
-    [Fact]
+    [Trait("Categoria", "Pagamentos - CommandHandler")]
+    [Fact(DisplayName = "Deve publicar evento quando pagamento aprovado")]
     public async Task Deve_Publicar_Evento_Quando_Pagamento_Aprovado()
     {
         var pagamentoRepository = new Mock<IPagamentoRepository>();
@@ -47,7 +48,8 @@ public class PagamentoCommandHandlerTests
         eventosPublicados.First().Should().BeOfType<PagamentoConfirmadoEvent>();
     }
 
-    [Fact]
+    [Trait("Categoria", "Pagamentos - CommandHandler")]
+    [Fact(DisplayName = "Deve publicar evento de rejeição quando pagamento não aprovado")]
     public async Task Deve_Publicar_Evento_De_Rejeicao_Quando_Pagamento_Nao_Aprovado()
     {
         var pagamentoRepository = new Mock<IPagamentoRepository>();
@@ -78,7 +80,8 @@ public class PagamentoCommandHandlerTests
         eventosPublicados.First().Should().BeOfType<PagamentoRejeitadoEvent>();
     }
 
-    [Fact]
+    [Trait("Categoria", "Pagamentos - CommandHandler")]
+    [Fact(DisplayName = "Deve notificar falha quando commit não concluído")]
     public async Task Deve_Notificar_Falha_Quando_Commit_Nao_Concluido()
     {
         var pagamentoRepository = new Mock<IPagamentoRepository>();
@@ -106,7 +109,8 @@ public class PagamentoCommandHandlerTests
         mediatorHandler.Verify(m => m.PublicarEvento(It.IsAny<Event>()), Times.Never);
     }
 
-    [Fact]
+    [Trait("Categoria", "Pagamentos - CommandHandler")]
+    [Fact(DisplayName = "Deve confirmar pagamento existente")]
     public async Task Deve_Confirmar_Pagamento_Existente()
     {
         var pagamento = new Pagamento(Guid.NewGuid(), Guid.NewGuid(), 200m,
@@ -140,7 +144,8 @@ public class PagamentoCommandHandlerTests
         eventosPublicados.Should().ContainSingle().Which.Should().BeOfType<PagamentoConfirmadoEvent>();
     }
 
-    [Fact]
+    [Trait("Categoria", "Pagamentos - CommandHandler")]
+    [Fact(DisplayName = "Não deve confirmar quando pagamento inexistente")]
     public async Task Nao_Deve_Confirmar_Quando_Pagamento_Inexistente()
     {
         var pagamentoRepository = new Mock<IPagamentoRepository>();
