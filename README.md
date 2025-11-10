@@ -1,5 +1,6 @@
 # MBA Projeto 03 Plataforma de Educação Online
 
+[![Coverage](https://codecov.io/gh/gustavopalinka/MBA.Educacao.Online/branch/bkp/graph/badge.svg?token=daec4255-c339-427a-aa67-e87fd30f8ef9)](https://codecov.io/gh/gustavopalinka/MBA.Educacao.Online?branch=bkp)
 [![Coverage](https://codecov.io/github/gustavopalinka/MBA.Educacao.Online/branch/main/graph/badge.svg)](https://codecov.io/github/gustavopalinka/MBA.Educacao.Online)
 
 # CREDENCIAIS DE TESTE:
