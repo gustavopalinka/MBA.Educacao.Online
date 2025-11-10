@@ -114,6 +114,44 @@ public class FluxoCompletoTests : IAsyncLifetime
         progressoCurso!.PercentualConcluido.Should().Be(100m);
     }
 
+    [Fact]
+    public async Task Deve_Cancelar_Matricula_Quando_Pagamento_Rejeitado()
+    {
+        using var scope = _provider.CreateScope();
+        var mediator = scope.ServiceProvider.GetRequiredService<IMediator>();
+        var cursoRepository = scope.ServiceProvider.GetRequiredService<ICursoRepository>();
+        var alunoRepository = scope.ServiceProvider.GetRequiredService<IAlunoRepository>();
+
+        var conteudoProgramatico = new ConteudoProgramatico("DDD, CQRS, Clean Architecture", 1, DateTime.UtcNow);
+        var curso = new Curso("Arquitetura Avançada", "Curso completo", 300m, 60,
+            "Desenvolvedores", "Dominar arquitetura enterprise", "Conhecimento em C#", conteudoProgramatico);
+
+        curso.AdicionarAula(new Aula("AULA01", "Domain-Driven Design", "Fundamentos de DDD", 1, curso.Id));
+
+        cursoRepository.Adicionar(curso);
+        await cursoRepository.UnitOfWork.Commit();
+
+        var aluno = new Aluno(Guid.NewGuid(), "Aluno Integração", "integracao@teste.com");
+        alunoRepository.Adicionar(aluno);
+        await alunoRepository.UnitOfWork.Commit();
+
+        var matricular = await mediator.Send(new MatricularAlunoCommand(aluno.Id, curso.Id));
+        matricular.Should().BeTrue();
+
+        var alunoMatriculado = await alunoRepository.ObterAlunoComMatriculas(aluno.Id);
+        alunoMatriculado.Should().NotBeNull();
+        var matricula = alunoMatriculado!.Matriculas.First();
+
+        var pagamento = await mediator.Send(new RealizarPagamentoCommand(matricula.Id, aluno.Id, curso.Valor,
+            "5555444433332221", "Aluno Integração", "12/30", "123")); // último dígito ímpar -> rejeição
+        pagamento.Should().BeTrue();
+
+        alunoMatriculado = await alunoRepository.ObterAlunoComMatriculas(aluno.Id);
+        matricula = alunoMatriculado!.Matriculas.First();
+        matricula.Status.Should().Be(StatusMatricula.Cancelada);
+        matricula.Ativo.Should().BeFalse();
+    }
+
     private class FakeUnitOfWork : IUnitOfWork
     {
         public Task<bool> Commit() => Task.FromResult(true);
