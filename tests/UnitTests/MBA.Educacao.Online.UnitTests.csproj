@@ -28,6 +28,7 @@
     <ProjectReference Include="..\..\src\MBA.Educacao.Online.Core\MBA.Educacao.Online.Core.csproj" />
     <ProjectReference Include="..\..\src\MBA.Educacao.Online.GestaoAlunos.Application\MBA.Educacao.Online.GestaoAlunos.Application.csproj" />
     <ProjectReference Include="..\..\src\MBA.Educacao.Online.GestaoAlunos.Domain\MBA.Educacao.Online.GestaoAlunos.Domain.csproj" />
+    <ProjectReference Include="..\..\src\MBA.Educacao.Online.GestaoConteudo.Application\MBA.Educacao.Online.GestaoConteudo.Application.csproj" />
     <ProjectReference Include="..\..\src\MBA.Educacao.Online.GestaoConteudo.Domain\MBA.Educacao.Online.GestaoConteudo.Domain.csproj" />
     <ProjectReference Include="..\..\src\MBA.Educacao.Online.Pagamentos.Application\MBA.Educacao.Online.Pagamentos.Application.csproj" />
     <ProjectReference Include="..\..\src\MBA.Educacao.Online.Pagamentos.Domain\MBA.Educacao.Online.Pagamentos.Domain.csproj" />
